@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#d7c8ff">
+    <title>Урок 3 — Понятия и признаки</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="game-container lesson-three">
+        <button class="stop-btn is-hidden" id="stop-btn" type="button" aria-label="Прервать урок">⏹ Прервать</button>
+        <nav class="stage-map is-hidden" id="stage-map" aria-label="Этапы урока"></nav>
+
+        <section class="screen active" id="start-screen">
+            <div class="welcome-art" aria-hidden="true">💡 🧠 🔎</div>
+            <div class="professor">
+                <img class="professor-img welcome-professor" src="../assets/professor.png" alt="Профессор Винтик">
+                <div class="speech-bubble"><p>Привет, юный исследователь! Давай узнаем, как слова помогают объединять предметы, находить их важные признаки и разгадывать словесные загадки.</p></div>
+            </div>
+            <p class="eyebrow">УРОК 3 · МАСТЕРСКАЯ ПОНЯТИЙ</p>
+            <h1>Слова, признаки и группы</h1>
+            <p class="lead">Научимся замечать главное, наводить порядок в понятиях и понимать, когда группы пересекаются. Впереди восемь миссий и большая игра!</p>
+            <button class="btn-primary" id="start-btn" type="button">Начать приключение</button>
+            <a class="back-link" href="../index.html">← Вернуться к выбору уроков</a>
+        </section>
+
+        <section class="screen" id="mission-screen" aria-labelledby="mission-title">
+            <header class="mission-heading">
+                <span class="mission-icon" id="mission-icon" aria-hidden="true">🧩</span>
+                <div><p class="eyebrow" id="mission-tag"></p><h1 id="mission-title"></h1></div>
+            </header>
+            <article class="mission-card">
+                <p class="mission-story" id="mission-story"></p>
+                <aside class="lesson-rule" id="mission-rule" aria-label="Правило урока"></aside>
+                <div class="concept-diagram-slot" id="mission-diagram"></div>
+                <p class="mission-question" id="mission-question"></p>
+                <div class="answer-list" id="mission-options"></div>
+                <p class="feedback mission-feedback" id="mission-feedback" aria-live="polite"></p>
+            </article>
+            <button class="btn-primary" id="mission-next" type="button" disabled>Выбери ответ</button>
+        </section>
+
+        <section class="screen" id="quiz-screen" aria-labelledby="quiz-title">
+            <div class="quiz-topline"><span class="quiz-icon" aria-hidden="true">🏆</span><p class="eyebrow">БОЛЬШАЯ ИГРА ПОНЯТИЙ</p></div>
+            <h1 id="quiz-title">Проверь свою смекалку!</h1>
+            <div class="quiz-progress-wrap" role="status"><span id="quiz-progress">Задание 1 из 12</span><span id="quiz-score">⭐ 0</span></div>
+            <article class="quiz-card">
+                <p class="quiz-topic" id="quiz-topic"></p>
+                <h2 id="quiz-question"></h2>
+                <div class="answer-list" id="quiz-options"></div>
+                <p class="feedback quiz-feedback" id="quiz-feedback" aria-live="polite"></p>
+            </article>
+            <button class="btn-primary" id="quiz-next" type="button" disabled>Выбери ответ</button>
+        </section>
+
+        <section class="screen result-screen" id="review-screen">
+            <div class="result-icon" aria-hidden="true">🧭</div>
+            <p class="eyebrow">ВРЕМЯ РАЗОБРАТЬСЯ</p>
+            <h1>Каждая ошибка — подсказка!</h1>
+            <p class="lead" id="review-summary"></p>
+            <div class="review-card">
+                <h2>Что мы узнали</h2>
+                <ul>
+                    <li><strong>Понятие</strong> — мысль о предмете или группе предметов через их важные общие признаки. Образ — картинка одного предмета в воображении; понятие подходит многим предметам.</li>
+                    <li><strong>Содержание</strong> понятия — его важные признаки; <strong>объём</strong> — все предметы, к которым это понятие подходит.</li>
+                    <li>Если один круг понятий целиком внутри другого, то добавление уточняющего признака обычно сужает группу: «птицы» → «птицы, которые не летают». Это правило о связанных, вложенных группах.</li>
+                    <li><strong>Ограничение</strong> ведёт к более узкой группе; <strong>обобщение</strong> — к более широкой: «берёза» → «дерево».</li>
+                    <li><strong>Единичное</strong> понятие называет один предмет («Мурка»), <strong>общее</strong> — многих («кошка»), <strong>собирательное</strong> — группу как одно целое («стая»).</li>
+                    <li><strong>Тождество:</strong> два названия могут относиться к одному и тому же предмету. <strong>Подчинение:</strong> узкая группа целиком входит в широкую. <strong>Перекрещивание:</strong> две группы имеют общую часть.</li>
+                    <li><strong>Соподчинение:</strong> разные виды входят в одну большую группу. <strong>Противоположные</strong> признаки — крайние варианты, между которыми бывают другие. <strong>Противоречащие</strong> — признак и его отрицание: «красный» и «не красный».</li>
+                    <li>Вид и род — «берёза — дерево», а часть и целое — «ветка — дерево». Не путай эти связи. Слово «ключ» может значить и предмет для замка, и родник — слушай всё предложение.</li>
+                </ul>
+                <h2 class="diagram-heading">Круги показывают группы</h2>
+                <div class="relation-gallery" aria-label="Примеры отношений между понятиями, показанные кругами">
+                    <figure class="relation-card">
+                        <div class="relation-visual relation-same" role="img" aria-label="Круги двух понятий полностью совпадают: они относятся к одним и тем же предметам."><span>А = Б</span></div>
+                        <figcaption><strong>Тождество</strong><br>Один круг на другом: «дерево у качелей» и «берёза во дворе» — если мы говорим об одной и той же берёзе.</figcaption>
+                    </figure>
+                    <figure class="relation-card">
+                        <div class="relation-visual relation-inclusion" role="img" aria-label="Маленький круг Б целиком внутри большого круга А: каждый предмет Б входит в группу А."><span class="outer-label">А</span><span class="inner-label">Б</span></div>
+                        <figcaption><strong>Подчинение</strong><br>Каждая берёза — дерево: «берёзы» внутри группы «деревья».</figcaption>
+                    </figure>
+                    <figure class="relation-card">
+                        <div class="relation-visual relation-cross" role="img" aria-label="Два круга частично пересекаются: в общей части находятся предметы обеих групп."><span class="left-label">А</span><span class="right-label">Б</span></div>
+                        <figcaption><strong>Перекрещивание</strong><br>Некоторые дети любят и читать, и рисовать.</figcaption>
+                    </figure>
+                    <figure class="relation-card">
+                        <div class="relation-visual relation-sibling" role="img" aria-label="Два непересекающихся круга А и Б находятся внутри общего круга Р: это разные виды одной большой группы."><span class="parent-label">Общая группа Р</span><span class="child-one">А</span><span class="child-two">Б</span></div>
+                        <figcaption><strong>Соподчинение</strong><br>Кошки и собаки — разные виды животных.</figcaption>
+                    </figure>
+                    <figure class="relation-card">
+                        <div class="relation-visual relation-opposite" role="img" aria-label="Внутри общей группы два непересекающихся круга крайних вариантов, а между ними остаётся место для промежуточных вариантов."><span class="field-label">Температура</span><span class="left-label">Холодно</span><span class="right-label">Жарко</span><span class="middle-label">прохладно, тепло…</span></div>
+                        <figcaption><strong>Противоположность</strong><br>Холодно и жарко — крайние варианты; между ними бывают прохладно и тепло.</figcaption>
+                    </figure>
+                    <figure class="relation-card">
+                        <div class="relation-visual relation-contradiction" role="img" aria-label="Общая группа полностью разделена на две непересекающиеся части: красные предметы и предметы, которые не красные."><span class="field-label">Все предметы</span><span class="left-label">Красный</span><span class="right-label">Не красный</span></div>
+                        <figcaption><strong>Противоречие</strong><br>«Красный» и «не красный» вместе делят все предметы выбранной группы на две части.</figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="review-mistakes" id="review-mistakes"></div>
+            <button class="btn-primary" id="retry-btn" type="button">Сыграть ещё раз</button>
+            <a class="back-link" href="../index.html">← Вернуться к выбору уроков</a>
+        </section>
+
+        <section class="screen result-screen" id="success-screen">
+            <div class="result-icon" aria-hidden="true">🎉</div>
+            <p class="eyebrow">МИССИЯ ВЫПОЛНЕНА</p>
+            <h1>Настоящий знаток понятий!</h1>
+            <p class="lead">Ты умеешь замечать важные признаки, строить группы и находить связи между словами и предметами. Отличная работа!</p>
+            <p class="final-score" id="final-score"></p>
+            <img class="badge-img" src="../assets/badge.png" alt="Значок за прохождение урока">
+            <a class="btn-primary link-button" href="../index.html">В меню уроков</a>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

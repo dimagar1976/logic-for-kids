@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Логика для детей</title>
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        .menu-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .menu-header h1 {
+            color: #667eea;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .menu-header p {
+            color: #666;
+            font-size: 18px;
+        }
+        .menu-header .professor-img {
+            margin: 0 auto 20px;
+            display: block;
+        }
+        .lesson-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .lesson-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.2s;
+        }
+        .lesson-card:hover {
+            border-color: #667eea;
+            transform: translateX(5px);
+            background: #f0f4ff;
+        }
+        .lesson-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .lesson-info h3 {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        .lesson-info p {
+            color: #888;
+            font-size: 14px;
+        }
+        .lesson-card.locked {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .lesson-card.locked .lesson-number {
+            background: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="menu-header">
+            <img src="assets/professor.png" alt="Профессор Винтик" class="professor-img">
+            <h1>Логика для детей</h1>
+            <p>Учимся думать правильно вместе с Профессором Винтиком!</p>
+        </div>
+
+        <div class="lesson-list">
+            <a href="lesson1/index.html" class="lesson-card">
+                <div class="lesson-number">1</div>
+                <div class="lesson-info">
+                    <h3>Закон противоречия</h3>
+                    <p>Нельзя говорить «А» и «не-А» одновременно</p>
+                </div>
+            </a>
+
+            <a href="lesson2/index.html" class="lesson-card">
+                <div class="lesson-number">2</div>
+                <div class="lesson-info">
+                    <h3>Секреты умных сыщиков</h3>
+                    <p>Сравнение, анализ, синтез и поиск общего</p>
+                </div>
+            </a>
+
+            <a href="lesson3/index.html" class="lesson-card">
+                <div class="lesson-number">3</div>
+                <div class="lesson-info">
+                    <h3>Слова, признаки и группы</h3>
+                    <p>Учимся находить важное и связывать понятия</p>
+                </div>
+            </a>
+
+            <a href="lesson4/index.html" class="lesson-card">
+                <div class="lesson-number">4</div>
+                <div class="lesson-info">
+                    <h3>Объясни и разложи по полочкам</h3>
+                    <p>Определения, деление понятий и классификация</p>
+                </div>
+            </a>
+
+            <a href="lesson5/index.html" class="lesson-card">
+                <div class="lesson-number">5</div>
+                <div class="lesson-info">
+                    <h3>Утверждаем, отрицаем, проверяем!</h3>
+                    <p>Суждения, их виды и отношения между мыслями</p>
+                </div>
+            </a>
+
+            <a href="lesson6/index.html" class="lesson-card">
+                <div class="lesson-number">6</div>
+                <div class="lesson-info">
+                    <h3>Меняем слова — проверяем смысл!</h3>
+                    <p>Уточняем и преобразуем суждения, сохраняя их смысл</p>
+                </div>
+            </a>
+
+            <a href="lesson7/index.html" class="lesson-card">
+                <div class="lesson-number">7</div>
+                <div class="lesson-info">
+                    <h3>Четыре правила ясной мысли</h3>
+                    <p>Точность, непротиворечивость, выбор и хорошие основания</p>
+                </div>
+            </a>
+
+            <a href="lesson8/index.html" class="lesson-card">
+                <div class="lesson-number">8</div>
+                <div class="lesson-info">
+                    <h3>Детектив дедукции</h3>
+                    <p>Связываем посылки, строим выводы и проверяем рассуждения</p>
+                </div>
+            </a>
+
+            <a href="lesson9/index.html" class="lesson-card">
+                <div class="lesson-number">9</div>
+                <div class="lesson-info">
+                    <h3>Следопыты закономерностей</h3>
+                    <p>От наблюдений к общим выводам и поиску причин</p>
+                </div>
+            </a>
+
+            <a href="lesson10/index.html" class="lesson-card">
+                <div class="lesson-number">10</div>
+                <div class="lesson-info">
+                    <h3>Сыщики по сходству</h3>
+                    <p>Аналогия: строим догадки и проверяем их</p>
+                </div>
+            </a>
+
+            <a href="lesson11/index.html" class="lesson-card">
+                <div class="lesson-number">11</div>
+                <div class="lesson-info">
+                    <h3>Лаборатория гипотез</h3>
+                    <p>Объясняем наблюдения, выводим предсказания и проверяем догадки</p>
+                </div>
+            </a>
+
+            <a href="lesson12/index.html" class="lesson-card">
+                <div class="lesson-number">12</div>
+                <div class="lesson-info">
+                    <h3>Детектив доказательств</h3>
+                    <p>Находим тезис, проверяем основания и строим честные доказательства</p>
+                </div>
+            </a>
+
+            <a href="lesson13/index.html" class="lesson-card">
+                <div class="lesson-number">13</div>
+                <div class="lesson-info">
+                    <h3>Большая логическая экспедиция</h3>
+                    <p>Закрепляем понятия, суждения и умозаключения в финальных упражнениях</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

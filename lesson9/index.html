@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#e7dcff">
+    <meta name="description" content="Детский игровой урок об индукции: как наблюдать, обобщать и искать причины.">
+    <title>Урок 9 — Следопыты закономерностей</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="game-container lesson-nine">
+        <button class="stop-btn is-hidden" id="stop-btn" type="button">⏹ Прервать</button>
+        <nav class="stage-map is-hidden" id="stage-map" aria-label="Этапы урока"></nav>
+
+        <section class="screen active" id="start-screen">
+            <div class="welcome-art" aria-hidden="true">🔬 🔎 🌱</div>
+            <div class="professor">
+                <img class="professor-img welcome-professor" src="../assets/professor.png" alt="Профессор Винтик">
+                <div class="speech-bubble"><p>Привет, исследователь! Сегодня будем собирать наблюдения, искать закономерности и осторожно проверять, что действительно стало причиной события.</p></div>
+            </div>
+            <p class="eyebrow">УРОК 9 · МАСТЕРСКАЯ НАБЛЮДЕНИЙ</p>
+            <h1>Следопыты закономерностей</h1>
+            <p class="lead">Узнай, как перейти от примеров к общему правилу и как искать причину, не путая её с простой случайностью.</p>
+            <button class="btn-primary" id="start-btn" type="button">Начать исследование</button>
+            <a class="back-link" href="../index.html">← Вернуться к выбору уроков</a>
+        </section>
+
+        <section class="screen" id="mission-screen" aria-labelledby="mission-title">
+            <header class="mission-heading">
+                <span class="mission-icon" id="mission-icon" aria-hidden="true">🔎</span>
+                <div><p class="eyebrow" id="mission-tag"></p><h1 id="mission-title"></h1></div>
+            </header>
+            <article class="mission-card">
+                <p class="mission-story" id="mission-story"></p>
+                <aside class="lesson-rule" id="mission-rule" aria-label="Правило урока"></aside>
+                <div id="mission-diagram" class="mission-diagram is-hidden"></div>
+                <p class="mission-question" id="mission-question"></p>
+                <div class="answer-list" id="mission-options"></div>
+                <p class="answer-hint">Подумай и выбери ответ. Ошибка — подсказка: можно попробовать ещё раз.</p>
+                <p class="feedback mission-feedback" id="mission-feedback" aria-live="polite"></p>
+            </article>
+            <button class="btn-primary" id="mission-next" type="button" disabled>Выбери ответ</button>
+        </section>
+
+        <section class="screen" id="quiz-screen" aria-labelledby="quiz-title">
+            <div class="quiz-topline"><span class="quiz-icon" aria-hidden="true">🏆</span><p class="eyebrow">ФИНАЛЬНОЕ ИСПЫТАНИЕ</p></div>
+            <h1 id="quiz-title">Большая экспедиция</h1>
+            <div class="quiz-progress-wrap" role="status"><span id="quiz-progress">Задание 1 из 12</span><span id="quiz-score">⭐ 0</span></div>
+            <article class="quiz-card">
+                <p class="quiz-topic" id="quiz-topic"></p>
+                <h2 id="quiz-question"></h2>
+                <div class="answer-list" id="quiz-options"></div>
+                <p class="answer-hint">После ответа прочитай объяснение — оно поможет запомнить правило.</p>
+                <p class="feedback quiz-feedback" id="quiz-feedback" aria-live="polite"></p>
+            </article>
+            <button class="btn-primary" id="quiz-next" type="button" disabled>Выбери ответ</button>
+        </section>
+
+        <section class="screen result-screen" id="review-screen">
+            <div class="result-icon" aria-hidden="true">🧭</div>
+            <p class="eyebrow">ПАУЗА ДЛЯ РАЗМЫШЛЕНИЯ</p>
+            <h1>Исследователю нужна ещё одна проверка!</h1>
+            <p class="lead" id="review-summary"></p>
+            <div class="review-card">
+                <h2>Памятка следопыта</h2>
+                <ul>
+                    <li><strong>Индукция:</strong> от отдельных случаев идём к общему предположению. Новые наблюдения могут его уточнить.</li>
+                    <li><strong>Полная индукция:</strong> проверены все случаи в точно ограниченной группе. <strong>Неполная:</strong> проверена лишь часть, поэтому вывод требует осторожности.</li>
+                    <li><strong>Не спеши обобщать:</strong> ищи разные примеры, возможные исключения и важные признаки, а не только количество похожих случаев.</li>
+                    <li><strong>Причина</strong> помогает вызвать событие; <strong>условия</strong> могут помогать или мешать. То, что случилось раньше, не обязательно вызвало то, что случилось позже.</li>
+                    <li><strong>Четыре метода:</strong> сходство — ищи общее; различие — сравни случаи, отличающиеся одним важным условием; остатки — исключай уже объяснённое; сопутствующие изменения — замечай, что меняется вместе.</li>
+                    <li>Методы помогают искать объяснения, но нужно проверять измерения, другие возможные причины и новые случаи. Совпадение ещё не всегда доказывает причину.</li>
+                </ul>
+            </div>
+            <div class="review-mistakes" id="review-mistakes"></div>
+            <button class="btn-primary" id="retry-btn" type="button">Попробовать снова</button>
+            <a class="back-link" href="../index.html">← К выбору уроков</a>
+        </section>
+
+        <section class="screen result-screen" id="success-screen">
+            <div class="result-icon" aria-hidden="true">🎉</div>
+            <p class="eyebrow">ЭКСПЕДИЦИЯ ЗАВЕРШЕНА</p>
+            <h1>Мастер наблюдений!</h1>
+            <p class="lead">Ты умеешь собирать примеры, проверять обобщения и осторожно искать причины событий.</p>
+            <p class="final-score" id="final-score"></p>
+            <img class="badge-img" src="../assets/badge.png" alt="Значок за прохождение урока">
+            <a class="btn-primary link-button" href="../index.html">В меню уроков</a>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

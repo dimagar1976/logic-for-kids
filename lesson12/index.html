@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ddf2ff">
+    <meta name="description" content="Детский урок о доказательствах: тезис, основания, логическая связь и честное опровержение.">
+    <title>Урок 12 — Детектив доказательств</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="game-container lesson-twelve">
+        <button class="stop-btn is-hidden" id="stop-btn" type="button" aria-label="Прервать урок">⏹ Прервать</button>
+        <nav class="stage-map is-hidden" id="stage-map" aria-label="Этапы урока"></nav>
+
+        <section class="screen active" id="start-screen">
+            <div class="welcome-art" aria-hidden="true">🕵️ 📚 ✅</div>
+            <div class="professor">
+                <img class="professor-img welcome-professor" src="../assets/professor.png" alt="Профессор Винтик">
+                <div class="speech-bubble"><p>У любого ответа бывают улики! Давай научимся ясно говорить, что доказываем, находить надёжные основания и проверять, следует ли из них вывод.</p></div>
+            </div>
+            <p class="eyebrow">УРОК 12 · ДЕТЕКТИВ ДОКАЗАТЕЛЬСТВ</p>
+            <h1>Покажи, почему это верно!</h1>
+            <p class="lead">Разберём тезис, основания и ход доказательства, потренируемся замечать слабые доводы и опровергать мысль по правилам.</p>
+            <button class="btn-primary" id="start-btn" type="button">Начать расследование</button>
+            <a class="back-link" href="../index.html">← Вернуться к выбору уроков</a>
+        </section>
+
+        <section class="screen" id="mission-screen" aria-labelledby="mission-title">
+            <header class="mission-heading">
+                <span class="mission-icon" id="mission-icon" aria-hidden="true">🔎</span>
+                <div><p class="eyebrow" id="mission-tag"></p><h1 id="mission-title"></h1></div>
+            </header>
+            <article class="mission-card">
+                <p class="mission-story" id="mission-story"></p>
+                <aside class="lesson-rule" id="mission-rule" aria-label="Правило урока"></aside>
+                <div id="mission-diagram" class="mission-diagram is-hidden"></div>
+                <p class="mission-question" id="mission-question"></p>
+                <div class="answer-list" id="mission-options"></div>
+                <p class="answer-hint">Подумай, какие сведения действительно помогают ответить. Ошибка — подсказка: попробуй ещё раз.</p>
+                <p class="feedback mission-feedback" id="mission-feedback" aria-live="polite"></p>
+            </article>
+            <button class="btn-primary" id="mission-next" type="button" disabled>Выбери ответ</button>
+        </section>
+
+        <section class="screen" id="quiz-screen" aria-labelledby="quiz-title">
+            <div class="quiz-topline"><span class="quiz-icon" aria-hidden="true">🏆</span><p class="eyebrow">ФИНАЛЬНОЕ ИСПЫТАНИЕ</p></div>
+            <h1 id="quiz-title">Большая проверка улик</h1>
+            <div class="quiz-progress-wrap" role="status"><span id="quiz-progress">Задание 1 из 10</span><span id="quiz-score">⭐ 0</span></div>
+            <article class="quiz-card">
+                <p class="quiz-topic" id="quiz-topic"></p>
+                <h2 id="quiz-question"></h2>
+                <div class="answer-list" id="quiz-options"></div>
+                <p class="answer-hint">После ответа прочитай объяснение — оно поможет запомнить правило.</p>
+                <p class="feedback quiz-feedback" id="quiz-feedback" aria-live="polite"></p>
+            </article>
+            <button class="btn-primary" id="quiz-next" type="button" disabled>Выбери ответ</button>
+        </section>
+
+        <section class="screen result-screen" id="review-screen">
+            <div class="result-icon" aria-hidden="true">🧠</div>
+            <p class="eyebrow">ПАУЗА ДЛЯ РАЗМЫШЛЕНИЯ</p>
+            <h1>Соберём улики в цепочку</h1>
+            <p class="lead" id="review-summary"></p>
+            <div class="review-card">
+                <h2>Памятка детектива</h2>
+                <ul>
+                    <li><strong>Доказать мысль</strong> — значит обосновать её другими надёжными мыслями и показать, как из них получается вывод.</li>
+                    <li><strong>Тезис</strong> — мысль, которую доказываем. <strong>Основания</strong> (доводы) — проверенные сведения, которыми её поддерживаем. <strong>Ход доказательства</strong> — понятная связь оснований с тезисом.</li>
+                    <li><strong>Схема:</strong> надёжные основания + правильная логическая связь → тезис. Одного списка фактов мало: нужно показать, почему они поддерживают именно этот вывод.</li>
+                    <li><strong>Прямое доказательство:</strong> основания прямо ведут к тезису. <strong>Косвенное:</strong> проверяем другие возможности и исключаем их; для вывода нужно учесть все варианты.</li>
+                    <li>Хорошие основания должны быть правдивыми, относиться к вопросу и быть достаточными. Верные, но не относящиеся к тезису факты его не доказывают.</li>
+                    <li>Не меняй тезис на полпути и не объясняй его самим собой. Сначала уточни, что доказываешь, затем проверь каждое основание и связь.</li>
+                    <li><strong>Опровержение</strong> показывает, что тезис неверен или что приведённые доводы его не подтверждают. Контрпример — один подходящий случай, который показывает, что слова «все» неверны.</li>
+                    <li>Если не доказали одну догадку, это ещё не значит, что автоматически верна противоположная: могут быть и другие объяснения.</li>
+                </ul>
+                <div class="proof-flow" role="img" aria-label="Надёжные основания связаны правильным рассуждением и ведут к тезису">
+                    <div class="proof-part grounds"><strong>🔍 Основания</strong><span>Какие есть надёжные улики?</span></div>
+                    <span class="proof-sign" aria-hidden="true">+</span>
+                    <div class="proof-part link"><strong>🧠 Связь</strong><span>Почему из улик следует ответ?</span></div>
+                    <span class="proof-sign" aria-hidden="true">→</span>
+                    <div class="proof-part thesis"><strong>🎯 Тезис</strong><span>Что обосновываем?</span></div>
+                </div>
+                <p class="diagram-caption">Доказательство убедительно, только когда основания надёжны и действительно ведут к тезису.</p>
+            </div>
+            <div class="review-mistakes" id="review-mistakes"></div>
+            <button class="btn-primary" id="retry-btn" type="button">Попробовать снова</button>
+            <a class="back-link" href="../index.html">← К выбору уроков</a>
+        </section>
+
+        <section class="screen result-screen" id="success-screen">
+            <div class="result-icon" aria-hidden="true">🎉</div>
+            <p class="eyebrow">РАССЛЕДОВАНИЕ ЗАВЕРШЕНО</p>
+            <h1>Мастер доказательств!</h1>
+            <p class="lead">Ты умеешь находить тезис, проверять основания и замечать, когда довод не ведёт к ответу. Отличная работа!</p>
+            <p class="final-score" id="final-score"></p>
+            <img class="badge-img" src="../assets/badge.png" alt="Значок за прохождение урока">
+            <a class="btn-primary link-button" href="../index.html">В меню уроков</a>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

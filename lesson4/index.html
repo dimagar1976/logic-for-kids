@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#d8ccff">
+    <meta name="description" content="Детский урок о том, как объяснять слова и раскладывать понятия по группам.">
+    <title>Урок 4 — Определения и группы</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="game-container lesson-four">
+        <button class="stop-btn is-hidden" id="stop-btn" type="button">⏹ Прервать</button>
+        <nav class="stage-map is-hidden" id="stage-map" aria-label="Этапы урока"></nav>
+
+        <section class="screen active" id="start-screen">
+            <div class="welcome-art" aria-hidden="true">📚 🧩 🗂️</div>
+            <div class="professor">
+                <img class="professor-img welcome-professor" src="../assets/professor.png" alt="Профессор Винтик">
+                <div class="speech-bubble"><p>Привет, юный исследователь! В мастерской слов мы научимся давать понятные объяснения, делить предметы на группы и наводить в них порядок.</p></div>
+            </div>
+            <p class="eyebrow">УРОК 4 · МАСТЕРСКАЯ ПОНЯТИЙ</p>
+            <h1>Объясни и разложи по полочкам</h1>
+            <p class="lead">Узнаем, из чего складывается хорошее определение, как делить понятия без путаницы и зачем нужна классификация. Впереди девять миссий и большая игра!</p>
+            <button class="btn-primary" id="start-btn" type="button">Начать приключение</button>
+            <a class="back-link" href="../index.html">← Вернуться к выбору уроков</a>
+        </section>
+
+        <section class="screen" id="mission-screen" aria-labelledby="mission-title">
+            <header class="mission-heading">
+                <span class="mission-icon" id="mission-icon" aria-hidden="true">📖</span>
+                <div><p class="eyebrow" id="mission-tag"></p><h1 id="mission-title"></h1></div>
+            </header>
+            <article class="mission-card">
+                <p class="mission-story" id="mission-story"></p>
+                <aside class="lesson-rule" id="mission-rule" aria-label="Правило урока"></aside>
+                <div id="mission-diagram" class="mission-diagram is-hidden"></div>
+                <p class="mission-question" id="mission-question"></p>
+                <div class="answer-list" id="mission-options"></div>
+                <p class="answer-hint">Выбери ответ. Если ошибёшься, прочитай подсказку и нажми правильный вариант, чтобы продолжить.</p>
+                <p class="feedback mission-feedback" id="mission-feedback" aria-live="polite"></p>
+            </article>
+            <button class="btn-primary" id="mission-next" type="button" disabled>Выбери ответ</button>
+        </section>
+
+        <section class="screen" id="quiz-screen" aria-labelledby="quiz-title">
+            <div class="quiz-topline"><span class="quiz-icon" aria-hidden="true">🏆</span><p class="eyebrow">ФИНАЛЬНОЕ ИСПЫТАНИЕ</p></div>
+            <h1 id="quiz-title">Большая игра мастеров порядка</h1>
+            <div class="quiz-progress-wrap" role="status"><span id="quiz-progress">Задание 1 из 12</span><span id="quiz-score">⭐ 0</span></div>
+            <article class="quiz-card">
+                <p class="quiz-topic" id="quiz-topic"></p>
+                <h2 id="quiz-question"></h2>
+                <div class="answer-list" id="quiz-options"></div>
+                <p class="answer-hint">Если ошибся, прочитай объяснение и выбери правильный ответ.</p>
+                <p class="feedback quiz-feedback" id="quiz-feedback" aria-live="polite"></p>
+            </article>
+            <button class="btn-primary" id="quiz-next" type="button" disabled>Выбери ответ</button>
+        </section>
+
+        <section class="screen result-screen" id="review-screen">
+            <div class="result-icon" aria-hidden="true">🧠</div>
+            <p class="eyebrow">ПАУЗА ДЛЯ РАЗМЫШЛЕНИЯ</p>
+            <h1>Ошибки — это подсказки!</h1>
+            <p class="lead" id="review-summary"></p>
+            <div class="review-card">
+                <h2>Шпаргалка мастера</h2>
+                <ul>
+                    <li><strong>Определение</strong> объясняет, что это за предмет, и называет его важные признаки. Удобная подсказка: ближайшая большая группа + чем предмет в ней отличается.</li>
+                    <li>Определение должно подходить ровно нужным предметам: не быть слишком широким или узким, не повторять то же слово, быть понятным и сообщать, что предмет собой представляет.</li>
+                    <li>Чтобы разделить группу, выбери <strong>одно основание</strong> — один признак. Все группы вместе должны охватить исходную группу, не пересекаться и идти без пропуска ступеней.</li>
+                    <li><strong>Дихотомия</strong> — разделение на две части: «это» и «всё остальное». Расчленение на части — другое: колесо и руль являются частями велосипеда, а не видами велосипеда.</li>
+                    <li><strong>Классификация</strong> — система групп. Она может опираться на важные свойства (например, группы животных) или быть удобной, но условной (например, книги по первой букве названия).</li>
+                    <li>Если точное определение пока трудно дать, помогают показать предмет, описать его, назвать приметы, сравнить или рассказать, чем он отличается от похожего.</li>
+                </ul>
+            </div>
+            <div class="review-mistakes" id="review-mistakes"></div>
+            <button class="btn-primary" id="retry-btn" type="button">Сыграть ещё раз</button>
+            <a class="back-link" href="../index.html">← К выбору уроков</a>
+        </section>
+
+        <section class="screen result-screen" id="success-screen">
+            <div class="result-icon" aria-hidden="true">🎉</div>
+            <p class="eyebrow">МИССИЯ ВЫПОЛНЕНА</p>
+            <h1>Мастер объяснений и порядка!</h1>
+            <p class="lead">Ты умеешь объяснять понятия, находить честное основание для групп и замечать, где прячется путаница. Отличная работа!</p>
+            <p class="final-score" id="final-score"></p>
+            <img class="badge-img" src="../assets/badge.png" alt="Значок за прохождение урока">
+            <a class="btn-primary link-button" href="../index.html">В меню уроков</a>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ddf2ff">
+    <meta name="description" content="Детский урок об аналогии: как сравнивать предметы, строить догадки и проверять их.">
+    <title>Урок 10 — Мастерская аналогий</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="game-container lesson-ten">
+        <button class="stop-btn is-hidden" id="stop-btn" type="button" aria-label="Прервать урок">⏹ Прервать</button>
+        <nav class="stage-map is-hidden" id="stage-map" aria-label="Этапы урока"></nav>
+
+        <section class="screen active" id="start-screen">
+            <div class="welcome-art" aria-hidden="true">🧩 🔭 💡</div>
+            <div class="professor">
+                <img class="professor-img welcome-professor" src="../assets/professor.png" alt="Профессор Винтик">
+                <div class="speech-bubble"><p>Привет, юный исследователь! Давай сравнивать знакомые вещи и по сходству осторожно догадываться о том, что пока не знаем.</p></div>
+            </div>
+            <p class="eyebrow">УРОК 10 · МАСТЕРСКАЯ АНАЛОГИЙ</p>
+            <h1>Сыщики по сходству</h1>
+            <p class="lead">Узнай, как работает аналогия, почему важны существенные сходства и как проверить догадку, не принимая её за доказательство.</p>
+            <button class="btn-primary" id="start-btn" type="button">Начать расследование</button>
+            <a class="back-link" href="../index.html">← Вернуться к выбору уроков</a>
+        </section>
+
+        <section class="screen" id="mission-screen" aria-labelledby="mission-title">
+            <header class="mission-heading">
+                <span class="mission-icon" id="mission-icon" aria-hidden="true">🔎</span>
+                <div><p class="eyebrow" id="mission-tag"></p><h1 id="mission-title"></h1></div>
+            </header>
+            <article class="mission-card">
+                <p class="mission-story" id="mission-story"></p>
+                <aside class="lesson-rule" id="mission-rule" aria-label="Правило урока"></aside>
+                <div id="mission-diagram" class="mission-diagram is-hidden"></div>
+                <p class="mission-question" id="mission-question"></p>
+                <div class="answer-list" id="mission-options"></div>
+                <p class="answer-hint">Подумай и выбери ответ. Ошибка — подсказка: можно попробовать ещё раз.</p>
+                <p class="feedback mission-feedback" id="mission-feedback" aria-live="polite"></p>
+            </article>
+            <button class="btn-primary" id="mission-next" type="button" disabled>Выбери ответ</button>
+        </section>
+
+        <section class="screen" id="quiz-screen" aria-labelledby="quiz-title">
+            <div class="quiz-topline"><span class="quiz-icon" aria-hidden="true">🏆</span><p class="eyebrow">ФИНАЛЬНОЕ ИСПЫТАНИЕ</p></div>
+            <h1 id="quiz-title">Большая загадка сходства</h1>
+            <div class="quiz-progress-wrap" role="status"><span id="quiz-progress">Задание 1 из 12</span><span id="quiz-score">⭐ 0</span></div>
+            <article class="quiz-card">
+                <p class="quiz-topic" id="quiz-topic"></p>
+                <h2 id="quiz-question"></h2>
+                <div class="answer-list" id="quiz-options"></div>
+                <p class="answer-hint">После ответа прочитай объяснение — оно поможет запомнить правило.</p>
+                <p class="feedback quiz-feedback" id="quiz-feedback" aria-live="polite"></p>
+            </article>
+            <button class="btn-primary" id="quiz-next" type="button" disabled>Выбери ответ</button>
+        </section>
+
+        <section class="screen result-screen" id="review-screen">
+            <div class="result-icon" aria-hidden="true">🧭</div>
+            <p class="eyebrow">ПАУЗА ДЛЯ РАЗМЫШЛЕНИЯ</p>
+            <h1>Давай проверим догадки!</h1>
+            <p class="lead" id="review-summary"></p>
+            <div class="review-card">
+                <h2>Памятка сыщика</h2>
+                <ul>
+                    <li><strong>Аналогия</strong> — вывод от одного частного случая к другому: если два предмета похожи в известных признаках, можно предположить, что у них есть и ещё один общий признак.</li>
+                    <li><strong>Схема:</strong> знакомый предмет А имеет признаки a, b, c и x; новый предмет Б похож на А по a, b, c; значит, можно предположить, что у Б, возможно, тоже есть x.</li>
+                    <li>Вывод по аналогии только <strong>вероятный</strong>. Чем больше существенных сходств и чем лучше они связаны с новым признаком, тем полезнее догадка.</li>
+                    <li>Даже много сходств не спасут вывод, если у нового предмета есть важное отличие, несовместимое с предполагаемым признаком.</li>
+                    <li><strong>Аналогия — не доказательство.</strong> Она помогает придумать предположение, объяснить мысль или наметить исследование. Ищи новые наблюдения и проверяй вывод.</li>
+                    <li>Похожесть по случайному цвету или форме обычно мало помогает узнать, например, как предмет работает. Важны именно подходящие к вопросу признаки.</li>
+                </ul>
+                <div class="formula-card" aria-label="Схема вывода по аналогии">
+                    <div class="formula-object known"><strong>Знакомый предмет А</strong><span>а, б, в и х известны</span></div>
+                    <div class="formula-transfer" aria-hidden="true">похожие а, б, в →</div>
+                    <div class="formula-object target"><strong>Новый предмет Б</strong><span>х? — догадка, нужна проверка</span></div>
+                </div>
+                <p class="diagram-caption">Схема показывает предположение о признаке х, а не готовое доказательство.</p>
+            </div>
+            <div class="review-mistakes" id="review-mistakes"></div>
+            <button class="btn-primary" id="retry-btn" type="button">Попробовать снова</button>
+            <a class="back-link" href="../index.html">← К выбору уроков</a>
+        </section>
+
+        <section class="screen result-screen" id="success-screen">
+            <div class="result-icon" aria-hidden="true">🎉</div>
+            <p class="eyebrow">РАССЛЕДОВАНИЕ ЗАВЕРШЕНО</p>
+            <h1>Мастер аналогий!</h1>
+            <p class="lead">Ты умеешь находить важное сходство, строить осторожные догадки и помнить, что их нужно проверять. Отличная работа!</p>
+            <p class="final-score" id="final-score"></p>
+            <img class="badge-img" src="../assets/badge.png" alt="Значок за прохождение урока">
+            <a class="btn-primary link-button" href="../index.html">В меню уроков</a>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

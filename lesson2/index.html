@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#b8f2d0">
+    <title>Урок 2 — Логические приёмы</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="game-container lesson-two">
+        <button class="stop-btn is-hidden" id="stop-btn" type="button" aria-label="Прервать урок">⏹ Прервать</button>
+        <nav class="stage-map is-hidden" id="stage-map" aria-label="Этапы урока"></nav>
+
+        <section class="screen active" id="start-screen">
+            <div class="welcome-art" aria-hidden="true">🔎 🧠 ✨</div>
+            <div class="professor">
+                <img class="professor-img welcome-professor" src="../assets/professor.png" alt="Профессор Винтик">
+                <div class="speech-bubble"><p>Привет, юный сыщик! Вместе научимся замечать важное, сравнивать и находить общие признаки.</p></div>
+            </div>
+            <p class="eyebrow">УРОК 2 · МЫСЛИТЕЛЬНАЯ МАСТЕРСКАЯ</p>
+            <h1>Секреты умных сыщиков</h1>
+            <p class="lead">Научимся замечать, сравнивать, разбирать на части, выделять главное и находить общее. Впереди семь коротких миссий и одна большая игра!</p>
+            <button class="btn-primary" id="start-btn" type="button">Начать приключение</button>
+            <a class="back-link" href="../index.html">← Вернуться к выбору уроков</a>
+        </section>
+
+        <section class="screen" id="mission-screen" aria-labelledby="mission-title">
+            <header class="mission-heading">
+                <span class="mission-icon" id="mission-icon" aria-hidden="true">🕵️</span>
+                <div>
+                    <p class="eyebrow" id="mission-tag"></p>
+                    <h1 id="mission-title"></h1>
+                </div>
+            </header>
+            <article class="mission-card">
+                <p class="mission-story" id="mission-story"></p>
+                <aside class="lesson-rule" id="mission-rule" aria-label="Правило урока"></aside>
+                <p class="mission-question" id="mission-question"></p>
+                <div class="answer-list" id="mission-options"></div>
+                <p class="feedback mission-feedback" id="mission-feedback" aria-live="polite"></p>
+            </article>
+            <button class="btn-primary" id="mission-next" type="button" disabled>Выбери ответ</button>
+        </section>
+
+        <section class="screen" id="quiz-screen" aria-labelledby="quiz-title">
+            <div class="quiz-topline"><span class="quiz-icon" aria-hidden="true">🏆</span><p class="eyebrow">ФИНАЛЬНОЕ ИСПЫТАНИЕ</p></div>
+            <h1 id="quiz-title">Большая игра мыслителей</h1>
+            <div class="quiz-progress-wrap" role="status"><span id="quiz-progress">Задание 1 из 12</span><span id="quiz-score">⭐ 0</span></div>
+            <article class="quiz-card">
+                <p class="quiz-topic" id="quiz-topic"></p>
+                <h2 id="quiz-question"></h2>
+                <div class="answer-list" id="quiz-options"></div>
+                <p class="feedback quiz-feedback" id="quiz-feedback" aria-live="polite"></p>
+            </article>
+            <button class="btn-primary" id="quiz-next" type="button" disabled>Выбери ответ</button>
+        </section>
+
+        <section class="screen result-screen" id="review-screen">
+            <div class="result-icon" aria-hidden="true">🧩</div>
+            <p class="eyebrow">ПАУЗА ДЛЯ РАЗМЫШЛЕНИЯ</p>
+            <h1>Ошибки — это подсказки!</h1>
+            <p class="lead" id="review-summary"></p>
+            <div class="review-card">
+                <h2>Вспомним приёмы</h2>
+                <ul>
+                    <li><strong>Ощущение</strong> сообщает об одном свойстве: например, лимон жёлтый. <strong>Восприятие</strong> помогает увидеть лимон целиком.</li>
+                    <li><strong>Мышление</strong> связывает подсказки и помогает узнать то, чего сейчас не видишь напрямую.</li>
+                    <li><strong>Сравнение</strong> ищет сходство и различие у связанных вещей. Выбери важный признак и сравни обе вещи одинаково.</li>
+                    <li><strong>Анализ</strong> мысленно разбирает целое на части; <strong>синтез</strong> соединяет части и помогает понять целое. Они дополняют друг друга.</li>
+                    <li><strong>Абстрагирование</strong> — выделить то свойство, которое важно для задачи, и пока не отвлекаться на другие.</li>
+                    <li><strong>Обобщение</strong> объединяет похожие предметы по общим свойствам. Не делай вывод обо всех по одному примеру.</li>
+                </ul>
+            </div>
+            <div class="review-mistakes" id="review-mistakes"></div>
+            <button class="btn-primary" id="retry-btn" type="button">Сыграть ещё раз</button>
+            <a class="back-link" href="../index.html">← К выбору уроков</a>
+        </section>
+
+        <section class="screen result-screen" id="success-screen">
+            <div class="result-icon" aria-hidden="true">🎉</div>
+            <p class="eyebrow">МИССИЯ ВЫПОЛНЕНА</p>
+            <h1>Мастер мыслительных приёмов!</h1>
+            <p class="lead">Ты умеешь внимательно наблюдать, честно сравнивать, разбирать и собирать целое, находить главное и объединять похожее.</p>
+            <p class="final-score" id="final-score"></p>
+            <img class="badge-img" src="../assets/badge.png" alt="Значок за прохождение урока">
+            <a class="btn-primary link-button" href="../index.html">В меню уроков</a>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#fff0dc">
+    <meta name="description" content="Заключительный детский урок-игра: понятия, суждения и умозаключения в логических упражнениях.">
+    <title>Урок 13 — Большая логическая экспедиция</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="game-container lesson-thirteen">
+        <button class="stop-btn is-hidden" id="stop-btn" type="button" aria-label="Прервать урок">⏹ Прервать</button>
+        <nav class="stage-map is-hidden" id="stage-map" aria-label="Этапы урока"></nav>
+
+        <section class="screen active" id="start-screen">
+            <div class="welcome-art" aria-hidden="true">🧭 🧠 🏁</div>
+            <div class="professor">
+                <img class="professor-img welcome-professor" src="../assets/professor.png" alt="Профессор Винтик">
+                <div class="speech-bubble"><p>Мы прошли целую книгу! Теперь отправимся в Большую логическую экспедицию: сравним понятия, наведём порядок в группах и проверим, какие выводы действительно следуют из условий.</p></div>
+            </div>
+            <p class="eyebrow">ЗАКЛЮЧИТЕЛЬНЫЙ УРОК · ЛОГИЧЕСКИЕ УПРАЖНЕНИЯ</p>
+            <h1>Большая логическая экспедиция</h1>
+            <p class="lead">Три остановки ждут тебя: понятия, суждения и умозаключения. Здесь важны не скорость и угадайка, а внимательная проверка каждого шага.</p>
+            <button class="btn-primary" id="start-btn" type="button">Начать экспедицию</button>
+            <a class="back-link" href="../index.html">← Вернуться к выбору уроков</a>
+        </section>
+
+        <section class="screen" id="mission-screen" aria-labelledby="mission-title">
+            <header class="mission-heading">
+                <span class="mission-icon" id="mission-icon" aria-hidden="true">🔎</span>
+                <div><p class="eyebrow" id="mission-tag"></p><h1 id="mission-title"></h1></div>
+            </header>
+            <article class="mission-card">
+                <p class="mission-story" id="mission-story"></p>
+                <aside class="lesson-rule" id="mission-rule" aria-label="Правило урока"></aside>
+                <div id="mission-diagram" class="mission-diagram is-hidden"></div>
+                <p class="mission-question" id="mission-question"></p>
+                <div class="answer-list" id="mission-options"></div>
+                <p class="answer-hint">Проверь условие и ход мысли. Ошибка — подсказка: попробуй ещё раз.</p>
+                <p class="feedback mission-feedback" id="mission-feedback" aria-live="polite"></p>
+            </article>
+            <button class="btn-primary" id="mission-next" type="button" disabled>Выбери ответ</button>
+        </section>
+
+        <section class="screen" id="quiz-screen" aria-labelledby="quiz-title">
+            <div class="quiz-topline"><span class="quiz-icon" aria-hidden="true">🏆</span><p class="eyebrow">ФИНАЛЬНЫЙ МАРШРУТ</p></div>
+            <h1 id="quiz-title">Проверка логического компаса</h1>
+            <div class="quiz-progress-wrap" role="status"><span id="quiz-progress">Задание 1 из 10</span><span id="quiz-score">⭐ 0</span></div>
+            <article class="quiz-card">
+                <p class="quiz-topic" id="quiz-topic"></p>
+                <h2 id="quiz-question"></h2>
+                <div class="answer-list" id="quiz-options"></div>
+                <p class="answer-hint">После ответа прочитай объяснение — оно поможет закрепить правило.</p>
+                <p class="feedback quiz-feedback" id="quiz-feedback" aria-live="polite"></p>
+            </article>
+            <button class="btn-primary" id="quiz-next" type="button" disabled>Выбери ответ</button>
+        </section>
+
+        <section class="screen result-screen" id="review-screen">
+            <div class="result-icon" aria-hidden="true">🗺️</div>
+            <p class="eyebrow">ПАУЗА ПЕРЕД ФИНИШЕМ</p>
+            <h1>Соберём правила экспедиции</h1>
+            <p class="lead" id="review-summary"></p>
+            <div class="review-card">
+                <h2>Памятка логического путешественника</h2>
+                <ul>
+                    <li><strong>Понятие</strong> называет предметы или явления по общим существенным признакам. <strong>Содержание</strong> — важные признаки понятия; <strong>объём</strong> — все предметы, к которым оно подходит.</li>
+                    <li><strong>Ограничить понятие</strong> — добавить признак и перейти к более узкой группе: «птица → водоплавающая птица». <strong>Обобщить</strong> — убрать признак и перейти к более широкой: «водоплавающая птица → птица».</li>
+                    <li><strong>Пересекающиеся понятия</strong> имеют общие предметы, но ни одно не включает всё другое. Круги Венна показывают объёмы: общая часть — предметы, подходящие обоим понятиям.</li>
+                    <li><strong>Деление</strong> раскладывает объём одного понятия на виды по одному основанию. Части должны быть сопоставимы, не смешиваться и вместе охватывать все случаи. «Крыша и стены» — части дома, а не виды домов.</li>
+                    <li><strong>Определение</strong> объясняет, что означает понятие. Хорошее определение ясное, соразмерное и не ходит по кругу. Пример: «Квадрат — четырёхугольник с четырьмя равными сторонами и четырьмя прямыми углами».</li>
+                    <li><strong>Суждение</strong> что-то утверждает или отрицает; оно может быть истинным или ложным. Вопрос и просьба сами по себе не суждения. Слово «все» относится только к указанной группе и не гарантирует, что сказанное правдиво.</li>
+                    <li><strong>Умозаключение</strong> выводит новое суждение из данных. Для простого правильного шага: «Все квадраты — прямоугольники; фигура — квадрат; значит, фигура — прямоугольник».</li>
+                    <li>Не путай направление: из «все квадраты — прямоугольники» нельзя заключить, что любой прямоугольник — квадрат. Если «если идёт дождь, дорожка мокрая», одна мокрая дорожка ещё не доказывает дождь.</li>
+                    <li>Проверяй каждую посылку и связь между ними. Недостаток сведений — повод сказать «пока неизвестно», а не угадывать.</li>
+                </ul>
+                <div class="venn-wrap">
+                    <p class="diagram-title">Пересекающиеся понятия: «школьники» и «спортсмены»</p>
+                    <svg class="venn-diagram" viewBox="0 0 500 250" role="img" aria-labelledby="venn-title venn-desc">
+                        <title id="venn-title">Пересекающиеся понятия школьники и спортсмены</title>
+                        <desc id="venn-desc">Два пересекающихся круга: левый обозначает школьников, правый спортсменов, а общая часть — школьников, которые занимаются спортом.</desc>
+                        <circle cx="190" cy="135" r="86" fill="#85c9ff" fill-opacity="0.62" stroke="#3d89c7" stroke-width="4"></circle>
+                        <circle cx="310" cy="135" r="86" fill="#ffb875" fill-opacity="0.62" stroke="#d98943" stroke-width="4"></circle>
+                        <text x="145" y="72" text-anchor="middle" class="venn-label">Школьники</text>
+                        <text x="355" y="72" text-anchor="middle" class="venn-label">Спортсмены</text>
+                        <text x="250" y="141" text-anchor="middle" class="venn-shared">Общие</text>
+                        <text x="250" y="224" text-anchor="middle" class="venn-note">Общая часть — школьники, которые занимаются спортом</text>
+                    </svg>
+                </div>
+                <p class="diagram-caption">Круги показывают группы, а не количество людей: пересечение не означает, что каждый школьник — спортсмен или каждый спортсмен — школьник.</p>
+                <div class="argument-stack recap-stack">
+                    <div class="argument-chip">Все квадраты — прямоугольники</div>
+                    <div class="argument-chip">Эта фигура — квадрат</div>
+                    <div class="argument-arrow">↓ значит</div>
+                    <div class="argument-chip conclusion">Эта фигура — прямоугольник</div>
+                </div>
+            </div>
+            <div class="review-mistakes" id="review-mistakes"></div>
+            <button class="btn-primary" id="retry-btn" type="button">Пройти проверку ещё раз</button>
+            <a class="back-link" href="../index.html">← К выбору уроков</a>
+        </section>
+
+        <section class="screen result-screen" id="success-screen">
+            <div class="result-icon" aria-hidden="true">🎉</div>
+            <p class="eyebrow">ЭКСПЕДИЦИЯ ЗАВЕРШЕНА</p>
+            <h1>Логический мастер!</h1>
+            <p class="lead">Ты умеешь сравнивать понятия, проверять утверждения и внимательно строить выводы. Это финиш книги — и старт новых вопросов!</p>
+            <p class="final-score" id="final-score"></p>
+            <img class="badge-img" src="../assets/badge.png" alt="Значок за прохождение урока">
+            <a class="btn-primary link-button" href="../index.html">В меню уроков</a>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

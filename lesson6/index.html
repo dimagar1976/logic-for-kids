@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#d8ccff">
+    <meta name="description" content="Игровой урок для детей о преобразовании суждений: как менять слова, сохраняя смысл.">
+    <title>Урок 6 — Превращаем суждения</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="game-container lesson-six">
+        <button class="stop-btn is-hidden" id="stop-btn" type="button">⏹ Прервать</button>
+        <nav class="stage-map is-hidden" id="stage-map" aria-label="Этапы урока"></nav>
+
+        <section class="screen active" id="start-screen">
+            <div class="welcome-art" aria-hidden="true">🧠 🔄 💬</div>
+            <div class="professor">
+                <img class="professor-img welcome-professor" src="../assets/professor.png" alt="Профессор Винтик">
+                <div class="speech-bubble"><p>Привет! Сегодня будем менять словесную одежду мысли, но следить, чтобы её смысл оставался прежним. Готов к логическим фокусам?</p></div>
+            </div>
+            <p class="eyebrow">УРОК 6 · МАСТЕРСКАЯ МЫСЛЕЙ</p>
+            <h1>Меняем слова — проверяем смысл!</h1>
+            <p class="lead">Узнай, как распутывать сложные фразы, замечать важные слова, понимать «только» и «или», а ещё безопасно превращать и обращать суждения.</p>
+            <button class="btn-primary" id="start-btn" type="button">Начать мастерскую</button>
+            <a class="back-link" href="../index.html">← Вернуться к выбору уроков</a>
+        </section>
+
+        <section class="screen" id="mission-screen" aria-labelledby="mission-title">
+            <header class="mission-heading">
+                <span class="mission-icon" id="mission-icon" aria-hidden="true">🔄</span>
+                <div><p class="eyebrow" id="mission-tag"></p><h1 id="mission-title"></h1></div>
+            </header>
+            <article class="mission-card">
+                <p class="mission-story" id="mission-story"></p>
+                <aside class="lesson-rule" id="mission-rule" aria-label="Правило урока"></aside>
+                <div id="mission-diagram" class="mission-diagram is-hidden"></div>
+                <p class="mission-question" id="mission-question"></p>
+                <div class="answer-list" id="mission-options"></div>
+                <p class="answer-hint">Выбери ответ. Если ошибёшься, прочитай подсказку и попробуй ещё раз.</p>
+                <p class="feedback mission-feedback" id="mission-feedback" aria-live="polite"></p>
+            </article>
+            <button class="btn-primary" id="mission-next" type="button" disabled>Выбери ответ</button>
+        </section>
+
+        <section class="screen" id="quiz-screen" aria-labelledby="quiz-title">
+            <div class="quiz-topline"><span class="quiz-icon" aria-hidden="true">🏆</span><p class="eyebrow">ФИНАЛЬНОЕ ИСПЫТАНИЕ</p></div>
+            <h1 id="quiz-title">Большая проверка превращений</h1>
+            <div class="quiz-progress-wrap" role="status"><span id="quiz-progress">Задание 1 из 12</span><span id="quiz-score">⭐ 0</span></div>
+            <article class="quiz-card">
+                <p class="quiz-topic" id="quiz-topic"></p>
+                <h2 id="quiz-question"></h2>
+                <div class="answer-list" id="quiz-options"></div>
+                <p class="answer-hint">После ответа прочитай объяснение — оно поможет запомнить правило.</p>
+                <p class="feedback quiz-feedback" id="quiz-feedback" aria-live="polite"></p>
+            </article>
+            <button class="btn-primary" id="quiz-next" type="button" disabled>Выбери ответ</button>
+        </section>
+
+        <section class="screen result-screen" id="review-screen">
+            <div class="result-icon" aria-hidden="true">🧭</div>
+            <p class="eyebrow">ПАУЗА ДЛЯ РАЗМЫШЛЕНИЯ</p>
+            <h1>Ошибки — подсказки для ума!</h1>
+            <p class="lead" id="review-summary"></p>
+            <div class="review-card">
+                <h2>Шпаргалка мастера мыслей</h2>
+                <ul>
+                    <li>Одну мысль можно сказать разными словами. Чтобы понять её, найди: <strong>о ком/о чём говорится</strong> и <strong>что именно сообщается</strong>.</li>
+                    <li>Смотри, к каким словам относится <strong>«не»</strong>. «Не Маша взяла карандаш» и «Маша не взяла карандаш» — разные сообщения.</li>
+                    <li>«Все», «некоторые» и «этот» проверяй по смыслу, а не только по единственному или множественному числу.</li>
+                    <li><strong>«Только»</strong> выделяет нужное условие: «Только выполнив задания, откроешь сундук» значит, что без заданий сундук не откроется.</li>
+                    <li><strong>Условие</strong> можно сказать в разном порядке: «Если…, то…» и «…, если…». Слово «если» — подсказка, но всегда проверяй смысл.</li>
+                    <li><strong>«Или»</strong> иногда предлагает варианты, которые могут сочетаться, а иногда — только один из них. Например, можно и петь, и танцевать.</li>
+                    <li><strong>Превращение:</strong> меняем утвердительную форму на отрицательную или наоборот, используя «не» у связки и отрицание признака. Предметы и смысл должны сохраниться; не убирай и не добавляй «некоторые» или «все».</li>
+                    <li><strong>Обращение:</strong> меняем местами предмет мысли и признак. Но «Все щенки — животные» не превращается в «Все животные — щенки»! Безопасный вывод: «Некоторые животные — щенки», если щенки есть.</li>
+                </ul>
+            </div>
+            <div class="review-mistakes" id="review-mistakes"></div>
+            <button class="btn-primary" id="retry-btn" type="button">Сыграть ещё раз</button>
+            <a class="back-link" href="../index.html">← К выбору уроков</a>
+        </section>
+
+        <section class="screen result-screen" id="success-screen">
+            <div class="result-icon" aria-hidden="true">🎉</div>
+            <p class="eyebrow">МИССИЯ ВЫПОЛНЕНА</p>
+            <h1>Мастер превращений!</h1>
+            <p class="lead">Ты умеешь распутывать фразы и знаешь: слова можно переставлять, но смысл нужно беречь. Отличная работа!</p>
+            <p class="final-score" id="final-score"></p>
+            <img class="badge-img" src="../assets/badge.png" alt="Значок за прохождение урока">
+            <a class="btn-primary link-button" href="../index.html">В меню уроков</a>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

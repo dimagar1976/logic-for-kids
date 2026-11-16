@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#bfe9d9">
+    <meta name="description" content="Детский игровой урок о четырёх законах правильного мышления.">
+    <title>Урок 7 — Четыре правила ясной мысли</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="game-container lesson-seven">
+        <button class="stop-btn is-hidden" id="stop-btn" type="button">⏹ Прервать</button>
+        <nav class="stage-map is-hidden" id="stage-map" aria-label="Этапы урока"></nav>
+
+        <section class="screen active" id="start-screen">
+            <div class="welcome-art" aria-hidden="true">🧠 🧭 ✨</div>
+            <div class="professor">
+                <img class="professor-img welcome-professor" src="../assets/professor.png" alt="Профессор Винтик">
+                <div class="speech-bubble"><p>Привет, юный мыслитель! Сегодня мы узнаем четыре правила, которые помогают мыслям быть точными, последовательными и убедительными.</p></div>
+            </div>
+            <p class="eyebrow">УРОК 7 · КОМАНДА ЯСНОЙ МЫСЛИ</p>
+            <h1>Четыре правила ясной мысли</h1>
+            <p class="lead">Не путай слова, замечай настоящие противоречия, выбирай между точными «да» и «нет» и подкрепляй ответы хорошими причинами.</p>
+            <button class="btn-primary" id="start-btn" type="button">Начать расследование</button>
+            <a class="back-link" href="../index.html">← Вернуться к выбору уроков</a>
+        </section>
+
+        <section class="screen" id="mission-screen" aria-labelledby="mission-title">
+            <header class="mission-heading">
+                <span class="mission-icon" id="mission-icon" aria-hidden="true">🧠</span>
+                <div><p class="eyebrow" id="mission-tag"></p><h1 id="mission-title"></h1></div>
+            </header>
+            <article class="mission-card">
+                <p class="mission-story" id="mission-story"></p>
+                <aside class="lesson-rule" id="mission-rule" aria-label="Правило урока"></aside>
+                <div id="mission-diagram" class="mission-diagram is-hidden"></div>
+                <p class="mission-question" id="mission-question"></p>
+                <div class="answer-list" id="mission-options"></div>
+                <p class="answer-hint">Подумай и выбери ответ. Ошибка — это подсказка: можно попробовать ещё раз.</p>
+                <p class="feedback mission-feedback" id="mission-feedback" aria-live="polite"></p>
+            </article>
+            <button class="btn-primary" id="mission-next" type="button" disabled>Выбери ответ</button>
+        </section>
+
+        <section class="screen" id="quiz-screen" aria-labelledby="quiz-title">
+            <div class="quiz-topline"><span class="quiz-icon" aria-hidden="true">🏆</span><p class="eyebrow">ФИНАЛЬНОЕ ИСПЫТАНИЕ</p></div>
+            <h1 id="quiz-title">Совет четырёх законов</h1>
+            <div class="quiz-progress-wrap" role="status"><span id="quiz-progress">Задание 1 из 12</span><span id="quiz-score">⭐ 0</span></div>
+            <article class="quiz-card">
+                <p class="quiz-topic" id="quiz-topic"></p>
+                <h2 id="quiz-question"></h2>
+                <div class="answer-list" id="quiz-options"></div>
+                <p class="answer-hint">После ответа прочитай объяснение — оно поможет запомнить правило.</p>
+                <p class="feedback quiz-feedback" id="quiz-feedback" aria-live="polite"></p>
+            </article>
+            <button class="btn-primary" id="quiz-next" type="button" disabled>Выбери ответ</button>
+        </section>
+
+        <section class="screen result-screen" id="review-screen">
+            <div class="result-icon" aria-hidden="true">🧭</div>
+            <p class="eyebrow">ПАУЗА ДЛЯ РАЗМЫШЛЕНИЯ</p>
+            <h1>Детективу нужна ещё одна улика!</h1>
+            <p class="lead" id="review-summary"></p>
+            <div class="review-card">
+                <h2>Памятка ясного мыслителя</h2>
+                <ul>
+                    <li><strong>Тождества:</strong> в одном разговоре используй важное слово в одном и том же смысле. Если слово может значить разное — уточни его.</li>
+                    <li><strong>Противоречия:</strong> два несовместимых ответа не могут быть оба верны, если говорят об одном предмете, времени и условии. Но иногда оба могут быть неверны: мяч может быть серым — не белым и не чёрным.</li>
+                    <li><strong>Исключённого третьего:</strong> у точного высказывания и его отрицания нет третьего ответа. Например, эта карточка сейчас лежит на столе — или не лежит. Мы можем пока не знать ответ, но это не меняет двух возможностей.</li>
+                    <li><strong>Достаточного основания:</strong> важное утверждение подкрепляй подходящими фактами, наблюдением или надёжным правилом. «Я так думаю» — ещё не доказательство.</li>
+                    <li>Логические правила помогают рассуждать, но сами по себе не сообщают, какой ответ верен: факты нужно проверить.</li>
+                </ul>
+            </div>
+            <div class="review-mistakes" id="review-mistakes"></div>
+            <button class="btn-primary" id="retry-btn" type="button">Попробовать снова</button>
+            <a class="back-link" href="../index.html">← К выбору уроков</a>
+        </section>
+
+        <section class="screen result-screen" id="success-screen">
+            <div class="result-icon" aria-hidden="true">🎉</div>
+            <p class="eyebrow">МИССИЯ ВЫПОЛНЕНА</p>
+            <h1>Хранитель ясных мыслей!</h1>
+            <p class="lead">Ты знаешь четыре правила: будь точным, не путай несовместимые мысли, проверяй точные «да/нет» и ищи хорошие основания.</p>
+            <p class="final-score" id="final-score"></p>
+            <img class="badge-img" src="../assets/badge.png" alt="Значок за прохождение урока">
+            <a class="btn-primary link-button" href="../index.html">В меню уроков</a>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Логика для детей - Урок 1</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+
+        <!-- Кнопка прерывания: видна на всех экранах урока, кроме первой страницы и финалов -->
+        <button id="stop-btn" class="stop-btn is-hidden" onclick="stopLesson()" title="Прекратить и вернуться к началу урока">
+            ⏹ Прервать
+        </button>
+
+        <!-- Карта прогресса по главе I -->
+        <div id="stage-map" class="stage-map is-hidden"></div>
+
+        <!-- Экран 1: Начало -->
+        <div id="start-screen" class="screen active">
+            <div class="professor">
+                <img src="../assets/professor.png" alt="Профессор Винтик" class="professor-img">
+                <div class="speech-bubble">
+                    <p>Привет, юный сыщик! Помоги мне пройти пять коротких миссий, разгадай спор Робота Ворчуна, а в конце сыграй в одну большую логическую игру!</p>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="startLesson()">Помогу!</button>
+            <button class="btn-back" onclick="goToMenu()">← Вернуться к выбору уроков</button>
+        </div>
+
+        <!-- Игровые миссии по темам главы -->
+        <div id="story-screen" class="screen">
+            <div class="mission-heading">
+                <div class="mission-icon" aria-hidden="true">🕵️</div>
+                <div>
+                    <p class="story-tag" id="story-tag"></p>
+                    <h2 id="mission-title"></h2>
+                </div>
+            </div>
+            <div class="mission-card">
+                <p id="mission-story" class="mission-story"></p>
+                <aside id="mission-rule" class="lesson-rule" aria-label="Правило урока"></aside>
+                <p id="mission-question" class="mission-question"></p>
+                <div id="mission-options" class="mission-options"></div>
+                <p id="mission-feedback" class="mission-feedback" aria-live="polite"></p>
+            </div>
+            <button class="btn-primary" id="story-btn" onclick="afterStory()" disabled>Выбери ответ</button>
+        </div>
+
+        <!-- Экран повтора: правило + разбор ошибок неудачной попытки -->
+        <div id="review-screen" class="screen">
+            <div class="professor">
+                <img src="../assets/professor.png" alt="Профессор Винтик" class="professor-img">
+                <div class="speech-bubble">
+                    <p id="review-rule"></p>
+                    <p class="review-title">Вот где ты запутался. Давай разберём:</p>
+                    <ul id="mistake-list" class="mistake-list"></ul>
+                </div>
+            </div>
+            <button class="btn-primary" id="review-btn" onclick="afterReview()">Пробовать снова</button>
+        </div>
+
+        <!-- Экран 2: Мини-спектакль (Диалог) -->
+        <div id="dialogue-screen" class="screen">
+            <div class="stage">
+                <div class="character left" id="char-left">
+                    <img src="../assets/professor.png" alt="Винтик" class="char-avatar">
+                    <div class="bubble" id="bubble-left">Стало быть, по-твоему, убеждений не существует?</div>
+                </div>
+                <div class="character right" id="char-right">
+                    <div class="bubble" id="bubble-right">Нет — и не существует!</div>
+                    <img src="../assets/robot.png" alt="Ворчун" class="char-avatar" onerror="this.src='../assets/professor.png'">
+                </div>
+            </div>
+            <button class="btn-primary" id="next-dialogue-btn" onclick="nextDialogueStep()">Дальше</button>
+        </div>
+
+        <!-- Единая итоговая игра: вопросы по главе и задания на противоречия -->
+        <div id="practice-screen" class="screen">
+            <div class="professor-small">
+                <img src="../assets/professor.png" alt="Винтик" class="professor-img-small">
+            </div>
+            <div class="practice-header">
+                <h3 id="practice-title">Большая игра логических сыщиков</h3>
+                <div class="practice-progress-wrap" role="status">
+                    <span id="progress-text">Задание 1 из 12</span>
+                    <span id="practice-score">⭐ 0</span>
+                </div>
+            </div>
+
+            <!-- Тип задания: найди противоречие -->
+            <div id="both-block">
+                <div class="practice-card">
+                    <div class="fact-box fact-left">
+                        <span class="fact-label">Факт 1:</span>
+                        <p id="fact1-text"></p>
+                    </div>
+                    <div class="fact-box fact-right">
+                        <span class="fact-label">Факт 2:</span>
+                        <p id="fact2-text"></p>
+                    </div>
+                </div>
+                <p class="practice-question">Могут ли <strong>ОБА</strong> факта быть правдой одновременно?</p>
+                <div class="practice-buttons" id="practice-buttons">
+                    <button class="btn-practice btn-can" onclick="checkPractice(true)">✅ Да, могут</button>
+                    <button class="btn-practice btn-cannot" onclick="checkPractice(false)">⚡ Нет, противоречие!</button>
+                </div>
+            </div>
+
+            <!-- Тип задания: вопрос по главе -->
+            <div id="choice-block" class="is-hidden">
+                <div class="choice-card">
+                    <p class="choice-question" id="choice-question"></p>
+                    <div class="choice-options" id="choice-options"></div>
+                </div>
+            </div>
+
+            <div id="practice-feedback" class="feedback"></div>
+        </div>
+
+        <!-- Экран 4: Не получилось дважды (мягко предлагаем начать заново) -->
+        <div id="retry-screen" class="screen">
+            <div class="professor">
+                <img src="../assets/professor.png" alt="Профессор Винтик" class="professor-img">
+                <div class="speech-bubble">
+                    <p>Ничего страшного! Даже профессора ошибаются — и то хорошо, что ты дошёл сюда.<br><br>
+                    <strong>Главное из главы:</strong> логика изучает, как правильно строить мысли. Хорошая мысль ясна, не спорит сама с собой, её шаги идут по порядку, а догадка опирается на причины или подсказки. Одна и та же мысль может говорить о разных вещах, но иметь похожее строение — словно одинаковый каркас у разных домиков. Мы выражаем мысли словами и проверяем их фактами.<br><br>
+                    Давай пройдём главу ещё раз — со второго раза у тебя обязательно получится!</p>
+                </div>
+            </div>
+            <div class="score-display">
+                    Правильных ответов: <span id="retry-score">0</span> из 12
+                <span class="score-note">ошибок: <span id="retry-mistakes">0</span></span>
+            </div>
+            <div class="final-buttons">
+                <button class="btn-final btn-menu" onclick="goToMenu()">🏠 В главное меню</button>
+                <button class="btn-final btn-next" onclick="startLesson()">🔁 Пройти заново</button>
+            </div>
+        </div>
+
+        <!-- Экран 5: Победа (тест пройден: 0 или 1 ошибка) -->
+        <div id="success-screen" class="screen">
+            <div class="professor">
+                <img src="../assets/professor.png" alt="Профессор Винтик" class="professor-img">
+                <div class="speech-bubble">
+                    <p id="success-text"></p>
+                </div>
+            </div>
+            <div class="badge">
+                <img src="../assets/badge.png" alt="Значок" class="badge-img">
+                <p>Мастер Логики</p>
+            </div>
+            <div class="score-display">
+                Правильных ответов: <span id="success-score">0</span> из 12
+            </div>
+            <div class="final-buttons">
+                <button class="btn-final btn-menu" onclick="goToMenu()">🏠 В главное меню</button>
+                <button class="btn-final btn-next" onclick="goToNextLesson()">➡️ Следующий урок</button>
+            </div>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
