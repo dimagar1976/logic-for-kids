@@ -252,7 +252,10 @@ function showQuizQuestion() {
 }
 
 function finishQuiz() {
-    if (mistakes.length <= MAX_ERRORS) {
+    const passed = mistakes.length <= MAX_ERRORS;
+    const result = window.CourseProgress.recordResult(12, { passed, mistakes: mistakes.length, score: correctCount, totalQuestions: selectedQuiz.length });
+    if (passed) {
+        window.CourseProgress.renderAward($('success-screen'), result, result.medalImproved);
         $('final-score').textContent = `Ты набрал(а) ${correctCount} из ${selectedQuiz.length} звёзд.`;
         showScreen('success-screen');
         return;

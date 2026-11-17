@@ -194,6 +194,7 @@ let currentPracticeQ = 0;
 let correctCount = 0;
 let isWaiting = false;
 let attemptNumber = 0;       // 1 — основная попытка, 2 — повторная
+let currentCourseResult = null;
 let attemptLog = [];         // что произошло в текущей попытке
 let currentStage = '';       // текущий этап карты прогресса
 let stats = loadStats();     // накопленная статистика по всем попыткам (localStorage)
@@ -211,11 +212,7 @@ function loadStats() {
 }
 
 function saveStats() {
-    try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(stats));
-    } catch (e) {
-        // приватный режим браузера — статистика просто не сохраняется
-    }
+    // Старый ключ оставлен только для чтения и совместимости.
 }
 
 // Случайные вопросы из пула; вопросы с прошлыми ошибками — в приоритете.
@@ -320,6 +317,7 @@ const STATIONS = [
 let stationIndex = 0;
 
 function startLesson() {
+    currentCourseResult = null;
     stationIndex = 0;
     showStation();
 }
@@ -594,6 +592,13 @@ function recordAnswer(q, correct) {
 function finishAttempt() {
     const wrong = sessionQuestions.length - correctCount;
     stats.bestScore = Math.max(stats.bestScore || 0, correctCount);
+    stats.attempts = (stats.attempts || 0) + 1;
+    currentCourseResult = window.CourseProgress.recordResult(1, {
+        passed: wrong <= MAX_WRONG_ALLOWED,
+        mistakes: wrong,
+        score: correctCount,
+        totalQuestions: sessionQuestions.length
+    });
 
     if (wrong <= MAX_WRONG_ALLOWED) {
         finishChapterSuccess();
@@ -654,8 +659,8 @@ function afterReview() {
 // --- ФИНАЛ ГЛАВЫ: ПОБЕДА ---
 function finishChapterSuccess() {
     stats.passed = true;
-    stats.attempts = (stats.attempts || 0) + 1;
     saveStats();
+    window.CourseProgress.renderAward(document.getElementById('success-screen'), currentCourseResult, currentCourseResult && currentCourseResult.medalImproved);
     currentStage = 'final';
     document.getElementById('success-score').textContent = `${correctCount} ⭐`;
     document.getElementById('success-text').innerHTML =

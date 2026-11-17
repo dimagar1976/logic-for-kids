@@ -149,9 +149,30 @@ body {
 
 .badge p { font-size: 24px; font-weight: bold; color: #667eea; }
 
+/* Медаль за результат итоговой проверки */
+.course-award {
+    text-align: center;
+    margin: 18px auto;
+    padding: 18px;
+    border-radius: 16px;
+    background: #fff9e8;
+    border: 2px solid #f2d27a;
+    animation: awardAppear 0.5s ease both;
+}
+.course-award-emoji { font-size: 64px; line-height: 1.2; }
+.course-award-title { margin-top: 8px; color: #684b00; font-size: 20px; font-weight: bold; }
+.course-award-detail { margin-top: 5px; color: #665f4b; font-size: 15px; }
+.course-award-record { margin-top: 8px; color: #b05b00; font-size: 18px; font-weight: bold; }
+@keyframes awardAppear {
+    from { opacity: 0; transform: scale(0.85); }
+    to { opacity: 1; transform: scale(1); }
+}
+
 /* Адаптивность для мобильных */
 @media (max-width: 600px) {
     .game-container { padding: 20px; }
     .professor { flex-direction: column; align-items: center; text-align: center; }
     .speech-bubble::before { display: none; }
+    .lesson-medal { font-size: 22px; }
+    .course-award-emoji { font-size: 52px; }
 }

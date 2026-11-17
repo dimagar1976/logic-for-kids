@@ -40,6 +40,32 @@
             color: #333;
             transition: all 0.2s;
         }
+        .lesson-medal {
+            margin-left: auto;
+            font-size: 28px;
+            flex-shrink: 0;
+            width: 40px;
+            text-align: center;
+        }
+        .lesson-medal:not(:empty) { animation: medalAppear 0.45s ease both; }
+        @keyframes medalAppear {
+            from { opacity: 0; transform: scale(0.55); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .lesson-card.completed {
+            border-color: #4caf50;
+            background: #f0fff4;
+        }
+        .lesson-card.completed .lesson-number {
+            background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+        }
+        .progress-reset {
+            display: block;
+            width: fit-content;
+            margin: 24px auto 0;
+            color: #667085;
+            font-size: 13px;
+        }
         .lesson-card:hover {
             border-color: #667eea;
             transform: translateX(5px);
@@ -74,6 +100,9 @@
         .lesson-card.locked .lesson-number {
             background: #ccc;
         }
+        @media (max-width: 600px) {
+            .lesson-medal { font-size: 22px; }
+        }
     </style>
 </head>
 <body>
@@ -85,110 +114,166 @@
         </div>
 
         <div class="lesson-list">
-            <a href="lesson1/index.html" class="lesson-card">
+            <a href="lesson1/index.html" class="lesson-card" data-lesson="1">
                 <div class="lesson-number">1</div>
                 <div class="lesson-info">
                     <h3>Закон противоречия</h3>
                     <p>Нельзя говорить «А» и «не-А» одновременно</p>
                 </div>
+                <div class="lesson-medal" aria-label="Статус прохождения"></div>
             </a>
 
-            <a href="lesson2/index.html" class="lesson-card">
+            <a href="lesson2/index.html" class="lesson-card" data-lesson="2">
                 <div class="lesson-number">2</div>
                 <div class="lesson-info">
                     <h3>Секреты умных сыщиков</h3>
                     <p>Сравнение, анализ, синтез и поиск общего</p>
                 </div>
+                <div class="lesson-medal" aria-label="Статус прохождения"></div>
             </a>
 
-            <a href="lesson3/index.html" class="lesson-card">
+            <a href="lesson3/index.html" class="lesson-card" data-lesson="3">
                 <div class="lesson-number">3</div>
                 <div class="lesson-info">
                     <h3>Слова, признаки и группы</h3>
                     <p>Учимся находить важное и связывать понятия</p>
                 </div>
+                <div class="lesson-medal" aria-label="Статус прохождения"></div>
             </a>
 
-            <a href="lesson4/index.html" class="lesson-card">
+            <a href="lesson4/index.html" class="lesson-card" data-lesson="4">
                 <div class="lesson-number">4</div>
                 <div class="lesson-info">
                     <h3>Объясни и разложи по полочкам</h3>
                     <p>Определения, деление понятий и классификация</p>
                 </div>
+                <div class="lesson-medal" aria-label="Статус прохождения"></div>
             </a>
 
-            <a href="lesson5/index.html" class="lesson-card">
+            <a href="lesson5/index.html" class="lesson-card" data-lesson="5">
                 <div class="lesson-number">5</div>
                 <div class="lesson-info">
                     <h3>Утверждаем, отрицаем, проверяем!</h3>
                     <p>Суждения, их виды и отношения между мыслями</p>
                 </div>
+                <div class="lesson-medal" aria-label="Статус прохождения"></div>
             </a>
 
-            <a href="lesson6/index.html" class="lesson-card">
+            <a href="lesson6/index.html" class="lesson-card" data-lesson="6">
                 <div class="lesson-number">6</div>
                 <div class="lesson-info">
                     <h3>Меняем слова — проверяем смысл!</h3>
                     <p>Уточняем и преобразуем суждения, сохраняя их смысл</p>
                 </div>
+                <div class="lesson-medal" aria-label="Статус прохождения"></div>
             </a>
 
-            <a href="lesson7/index.html" class="lesson-card">
+            <a href="lesson7/index.html" class="lesson-card" data-lesson="7">
                 <div class="lesson-number">7</div>
                 <div class="lesson-info">
                     <h3>Четыре правила ясной мысли</h3>
                     <p>Точность, непротиворечивость, выбор и хорошие основания</p>
                 </div>
+                <div class="lesson-medal" aria-label="Статус прохождения"></div>
             </a>
 
-            <a href="lesson8/index.html" class="lesson-card">
+            <a href="lesson8/index.html" class="lesson-card" data-lesson="8">
                 <div class="lesson-number">8</div>
                 <div class="lesson-info">
                     <h3>Детектив дедукции</h3>
                     <p>Связываем посылки, строим выводы и проверяем рассуждения</p>
                 </div>
+                <div class="lesson-medal" aria-label="Статус прохождения"></div>
             </a>
 
-            <a href="lesson9/index.html" class="lesson-card">
+            <a href="lesson9/index.html" class="lesson-card" data-lesson="9">
                 <div class="lesson-number">9</div>
                 <div class="lesson-info">
                     <h3>Следопыты закономерностей</h3>
                     <p>От наблюдений к общим выводам и поиску причин</p>
                 </div>
+                <div class="lesson-medal" aria-label="Статус прохождения"></div>
             </a>
 
-            <a href="lesson10/index.html" class="lesson-card">
+            <a href="lesson10/index.html" class="lesson-card" data-lesson="10">
                 <div class="lesson-number">10</div>
                 <div class="lesson-info">
                     <h3>Сыщики по сходству</h3>
                     <p>Аналогия: строим догадки и проверяем их</p>
                 </div>
+                <div class="lesson-medal" aria-label="Статус прохождения"></div>
             </a>
 
-            <a href="lesson11/index.html" class="lesson-card">
+            <a href="lesson11/index.html" class="lesson-card" data-lesson="11">
                 <div class="lesson-number">11</div>
                 <div class="lesson-info">
                     <h3>Лаборатория гипотез</h3>
                     <p>Объясняем наблюдения, выводим предсказания и проверяем догадки</p>
                 </div>
+                <div class="lesson-medal" aria-label="Статус прохождения"></div>
             </a>
 
-            <a href="lesson12/index.html" class="lesson-card">
+            <a href="lesson12/index.html" class="lesson-card" data-lesson="12">
                 <div class="lesson-number">12</div>
                 <div class="lesson-info">
                     <h3>Детектив доказательств</h3>
                     <p>Находим тезис, проверяем основания и строим честные доказательства</p>
                 </div>
+                <div class="lesson-medal" aria-label="Статус прохождения"></div>
             </a>
 
-            <a href="lesson13/index.html" class="lesson-card">
+            <a href="lesson13/index.html" class="lesson-card" data-lesson="13">
                 <div class="lesson-number">13</div>
                 <div class="lesson-info">
                     <h3>Большая логическая экспедиция</h3>
                     <p>Закрепляем понятия, суждения и умозаключения в финальных упражнениях</p>
                 </div>
+                <div class="lesson-medal" aria-label="Статус прохождения"></div>
             </a>
         </div>
+        <a class="progress-reset" href="#" id="reset-progress">Сбросить прогресс</a>
     </div>
+    <script src="js/progress.js"></script>
+    <script>
+        (function () {
+            const medalNames = { gold: 'Золотая медаль', silver: 'Серебряная медаль', bronze: 'Бронзовая медаль', check: 'Пройдено' };
+            function renderProgress() {
+                const statuses = window.CourseProgress.getAllStatuses();
+                document.querySelectorAll('.lesson-card[data-lesson]').forEach(card => {
+                    const id = card.dataset.lesson;
+                    const status = statuses[id];
+                    const title = card.querySelector('.lesson-info h3').textContent.trim();
+                    const medal = card.querySelector('.lesson-medal');
+                    medal.setAttribute('role', 'status');
+                    medal.textContent = status && status.passed ? window.CourseProgress.getMedalEmoji(status.medal) : '';
+                    card.classList.toggle('completed', Boolean(status && status.passed));
+                    if (!status || !status.passed) {
+                        card.title = 'Не пройден';
+                        card.setAttribute('aria-label', `Урок ${id}: ${title}. Не пройден`);
+                        medal.title = 'Не пройден';
+                        medal.setAttribute('aria-label', `Урок ${id}: не пройден`);
+                        return;
+                    }
+                    const medalName = medalNames[status.medal] || 'Пройдено';
+                    const mistakes = Number.isFinite(status.bestMistakes) ? status.bestMistakes : null;
+                    const mistakeWord = mistakes === 1 ? 'ошибка' : mistakes === 2 || mistakes === 3 || mistakes === 4 ? 'ошибки' : 'ошибок';
+                    const details = `${medalName}${mistakes === null ? '' : ` · ${mistakes} ${mistakeWord}`} · ${status.attempts} ${status.attempts === 1 ? 'попытка' : status.attempts >= 2 && status.attempts <= 4 ? 'попытки' : 'попыток'}`;
+                    card.title = details;
+                    card.setAttribute('aria-label', `Урок ${id}: ${title}. Пройден, ${medalName.toLowerCase()}${mistakes === null ? '' : `, ${mistakes} ${mistakeWord}`}`);
+                    medal.title = details;
+                    medal.setAttribute('aria-label', `Урок ${id}: ${details}`);
+                });
+            }
+
+            renderProgress();
+            document.getElementById('reset-progress').addEventListener('click', event => {
+                event.preventDefault();
+                if (window.confirm('Сбросить результаты всех уроков? Это действие нельзя отменить.')) {
+                    window.CourseProgress.reset();
+                    renderProgress();
+                }
+            });
+        }());
+    </script>
 </body>
 </html>
