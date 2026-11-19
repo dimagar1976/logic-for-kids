@@ -117,6 +117,40 @@
         progress.lessons[id] = status;
         writeProgress(progress);
 
+        let token = null;
+        try {
+            token = localStorage.getItem('token');
+        } catch (error) {
+            // Локальный прогресс не зависит от доступности авторизации.
+        }
+        if (token) {
+            const serverScore = { gold: 6, silver: 4, bronze: 3, check: 0 }[medal] || 0;
+            try {
+                fetch('/api/progress', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ lessonId: id, score: serverScore })
+                })
+                    .then(response => {
+                        if (response.ok) return response.json();
+                        throw new Error('Ошибка сервера');
+                    })
+                    .then(data => {
+                        if (data.isGold) {
+                            console.log('🏆 Золотая медаль успешно сохранена на сервере!');
+                        }
+                    })
+                    .catch(error => {
+                        console.warn('Не удалось синхронизировать прогресс с сервером:', error);
+                    });
+            } catch (error) {
+                console.warn('Не удалось синхронизировать прогресс с сервером:', error);
+            }
+        }
+
         return {
             ...status,
             medalImproved: Boolean(medal && (MEDAL_RANK[medal] || 0) > (MEDAL_RANK[previousMedal] ?? -1))
