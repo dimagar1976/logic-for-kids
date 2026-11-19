@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль — Логика для детей</title>
+    <script src="js/auth-guard.js"></script>
+    <script src="js/api.js" type="module"></script>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 24px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+        }
+        .card {
+            width: min(100%, 620px);
+            padding: 34px;
+            border-radius: 20px;
+            background: #fff;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .25);
+        }
+        h1 { margin: 0 0 24px; color: #667eea; text-align: center; }
+        .stats { display: grid; gap: 12px; margin: 0 0 24px; }
+        .stat {
+            margin: 0;
+            padding: 16px;
+            border: 1px solid #e9eaf3;
+            border-radius: 12px;
+            background: #f8f9ff;
+            font-size: 17px;
+        }
+        .stat strong { color: #5b55ae; }
+        button {
+            width: 100%;
+            min-height: 50px;
+            padding: 12px 18px;
+            border: 0;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            font: inherit;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:disabled { background: #a8adbd; cursor: not-allowed; }
+        button:focus-visible, a:focus-visible { outline: 3px solid #f2c94c; outline-offset: 3px; }
+        h2 { margin: 30px 0 12px; font-size: 21px; }
+        .code-list { display: grid; gap: 10px; padding: 0; margin: 0; list-style: none; }
+        .code-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 16px;
+            border: 1px solid #e9eaf3;
+            border-radius: 12px;
+            background: #fafaff;
+        }
+        .code-value { font-family: Consolas, monospace; font-size: 17px; font-weight: bold; letter-spacing: .04em; }
+        .code-status { color: #33804a; font-size: 14px; white-space: nowrap; }
+        .code-status.used { color: #8a5a15; }
+        .notice { min-height: 22px; margin: 12px 0 0; color: #b42318; text-align: center; }
+        .empty { color: #667085; }
+        .links { display: flex; justify-content: space-between; gap: 16px; margin-top: 22px; }
+        .links a { color: #667eea; text-decoration: none; }
+        @media (max-width: 480px) {
+            body { padding: 14px; }
+            .card { padding: 24px 18px; }
+            .code-item { align-items: flex-start; flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <main class="card">
+        <h1 id="greeting">Ваш профиль</h1>
+        <section class="stats" aria-label="Статистика профиля">
+            <p class="stat">Золотых медалей: <strong id="gold-medals">—</strong></p>
+            <p class="stat">Доступно кодов для выдачи: <strong id="invite-slots">—</strong></p>
+        </section>
+        <button id="generate-invite" type="button" disabled>Сгенерировать новый код</button>
+        <p class="notice" id="notice" role="status" aria-live="polite"></p>
+        <h2>Выданные коды</h2>
+        <ul class="code-list" id="invite-list" aria-live="polite">
+            <li class="empty">Загрузка…</li>
+        </ul>
+        <nav class="links" aria-label="Навигация">
+            <a href="/">На главную</a>
+            <a href="#" id="logout">Выйти</a>
+        </nav>
+    </main>
+    <script type="module">
+        import { apiRequest } from './js/api.js';
+
+        const greeting = document.getElementById('greeting');
+        const goldMedals = document.getElementById('gold-medals');
+        const inviteSlots = document.getElementById('invite-slots');
+        const generateButton = document.getElementById('generate-invite');
+        const inviteList = document.getElementById('invite-list');
+        const notice = document.getElementById('notice');
+        let profile;
+
+        function renderInvites(codes) {
+            inviteList.replaceChildren();
+            if (!Array.isArray(codes) || codes.length === 0) {
+                const empty = document.createElement('li');
+                empty.className = 'empty';
+                empty.textContent = 'Пока нет выданных кодов.';
+                inviteList.appendChild(empty);
+                return;
+            }
+
+            codes.forEach(invite => {
+                const item = document.createElement('li');
+                item.className = 'code-item';
+                const code = document.createElement('span');
+                code.className = 'code-value';
+                code.textContent = invite.code;
+                const status = document.createElement('span');
+                status.className = `code-status${invite.isUsed ? ' used' : ''}`;
+                status.textContent = invite.isUsed ? 'Использован' : 'Свободен';
+                item.append(code, status);
+                inviteList.appendChild(item);
+            });
+        }
+
+        function renderProfile(data) {
+            profile = data;
+            greeting.textContent = `Привет, ${data.user.login}!`;
+            goldMedals.textContent = String(data.totalGoldMedals ?? 0);
+            inviteSlots.textContent = String(data.availableInviteSlots ?? 0);
+            generateButton.disabled = data.user.role !== 'admin' && data.availableInviteSlots <= 0;
+        }
+
+        async function loadProfile() {
+            const [data, codes] = await Promise.all([
+                apiRequest('/api/me'),
+                apiRequest('/api/invites')
+            ]);
+            renderProfile(data);
+            renderInvites(codes);
+        }
+
+        generateButton.addEventListener('click', async () => {
+            generateButton.disabled = true;
+            notice.textContent = '';
+            try {
+                const result = await apiRequest('/api/invites', { method: 'POST' });
+                if (result.error) throw new Error(result.error);
+                const codes = await apiRequest('/api/invites');
+                renderInvites(codes);
+                if (profile) renderProfile({ ...profile, availableInviteSlots: result.availableInviteSlots });
+                notice.textContent = `Новый код создан: ${result.code}`;
+                notice.style.color = '#33804a';
+            } catch (error) {
+                notice.style.color = '#b42318';
+                notice.textContent = error.message || 'Не удалось создать код. Попробуйте ещё раз.';
+                generateButton.disabled = !profile || (profile.user.role !== 'admin' && profile.availableInviteSlots <= 0);
+            }
+        });
+
+        document.getElementById('logout').addEventListener('click', event => {
+            event.preventDefault();
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '/auth.html';
+        });
+
+        loadProfile().catch(error => {
+            inviteList.replaceChildren();
+            const item = document.createElement('li');
+            item.className = 'empty';
+            item.textContent = 'Не удалось загрузить профиль. Обновите страницу.';
+            inviteList.appendChild(item);
+            notice.textContent = error.message || 'Ошибка загрузки профиля.';
+        });
+    </script>
+</body>
+</html>

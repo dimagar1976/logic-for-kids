@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход — Логика для детей</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+        }
+        .card {
+            width: min(100%, 460px);
+            padding: 32px;
+            border-radius: 20px;
+            background: #fff;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .25);
+        }
+        h1 { margin: 0 0 8px; color: #667eea; text-align: center; }
+        .intro { margin: 0 0 24px; color: #687080; text-align: center; }
+        .tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 24px; }
+        .tab {
+            padding: 12px;
+            border: 0;
+            border-radius: 12px;
+            background: #f0f1f8;
+            color: #555;
+            font: inherit;
+            cursor: pointer;
+        }
+        .tab[aria-selected="true"] { background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; }
+        label { display: block; margin: 0 0 7px; font-weight: bold; }
+        input {
+            width: 100%;
+            min-height: 46px;
+            margin: 0 0 17px;
+            padding: 11px 13px;
+            border: 1px solid #d8dbea;
+            border-radius: 10px;
+            font: inherit;
+        }
+        input:focus { outline: 3px solid rgba(102, 126, 234, .2); border-color: #667eea; }
+        .submit {
+            width: 100%;
+            min-height: 48px;
+            margin-top: 4px;
+            border: 0;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            font: inherit;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .submit:disabled { opacity: .65; cursor: wait; }
+        .message { min-height: 24px; margin: 15px 0 0; color: #b42318; text-align: center; }
+        .privacy { margin: 12px 0 0; color: #667085; font-size: 14px; text-align: center; }
+        .back { display: block; margin-top: 20px; color: #667eea; text-align: center; text-decoration: none; }
+        [hidden] { display: none !important; }
+        @media (max-width: 480px) { .card { padding: 24px 20px; } }
+    </style>
+</head>
+<body>
+    <main class="card">
+        <h1>Логика для детей</h1>
+        <p class="intro">Войдите или создайте аккаунт</p>
+        <div class="tabs" role="tablist" aria-label="Авторизация">
+            <button class="tab" id="login-tab" type="button" role="tab" aria-controls="login-form" aria-selected="true">Вход</button>
+            <button class="tab" id="register-tab" type="button" role="tab" aria-controls="register-form" aria-selected="false">Регистрация</button>
+        </div>
+
+        <form id="login-form" role="tabpanel" aria-labelledby="login-tab">
+            <label for="login-name">Логин</label>
+            <input id="login-name" name="login" autocomplete="username" required minlength="3" maxlength="20">
+            <label for="login-password">Пароль</label>
+            <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+            <button class="submit" type="submit">Войти</button>
+            <p class="message" id="login-message" role="alert" aria-live="polite"></p>
+        </form>
+
+        <form id="register-form" role="tabpanel" aria-labelledby="register-tab" hidden>
+            <label for="register-name">Логин</label>
+            <input id="register-name" name="login" autocomplete="username" required minlength="3" maxlength="20" aria-describedby="privacy-note">
+            <label for="register-password">Пароль</label>
+            <input id="register-password" name="password" type="password" autocomplete="new-password" required>
+            <label for="invite-code">Пригласительный код</label>
+            <input id="invite-code" name="inviteCode" autocomplete="off" required>
+            <button class="submit" type="submit">Зарегистрироваться</button>
+            <p class="privacy" id="privacy-note">Персональные данные не требуются</p>
+            <p class="message" id="register-message" role="alert" aria-live="polite"></p>
+        </form>
+        <a class="back" href="/">← На главную</a>
+    </main>
+    <script>
+        const tabs = [
+            { button: document.getElementById('login-tab'), form: document.getElementById('login-form') },
+            { button: document.getElementById('register-tab'), form: document.getElementById('register-form') }
+        ];
+
+        function selectTab(selected) {
+            tabs.forEach(({ button, form }) => {
+                const active = button === selected;
+                button.setAttribute('aria-selected', String(active));
+                form.hidden = !active;
+                if (active) form.querySelector('.message').textContent = '';
+            });
+        }
+
+        tabs.forEach(({ button }) => button.addEventListener('click', () => selectTab(button)));
+
+        async function submitAuth(form, endpoint) {
+            const message = form.querySelector('.message');
+            const submit = form.querySelector('[type="submit"]');
+            message.textContent = '';
+            submit.disabled = true;
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(Object.fromEntries(new FormData(form)))
+                });
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.error || 'Не удалось выполнить запрос. Попробуйте ещё раз.');
+                if (!result.token || !result.user) throw new Error('Сервер вернул неполные данные. Попробуйте ещё раз.');
+                localStorage.setItem('token', result.token);
+                localStorage.setItem('user', JSON.stringify(result.user));
+                window.location.href = '/profile.html';
+            } catch (error) {
+                message.textContent = error instanceof TypeError
+                    ? 'Не удалось связаться с сервером. Проверьте подключение и попробуйте ещё раз.'
+                    : error.message;
+            } finally {
+                submit.disabled = false;
+            }
+        }
+
+        document.getElementById('login-form').addEventListener('submit', event => {
+            event.preventDefault();
+            submitAuth(event.currentTarget, '/api/auth/login');
+        });
+        document.getElementById('register-form').addEventListener('submit', event => {
+            event.preventDefault();
+            submitAuth(event.currentTarget, '/api/auth/register');
+        });
+    </script>
+</body>
+</html>

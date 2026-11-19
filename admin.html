@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сброс пароля — Логика для детей</title>
+    <script src="js/auth-guard.js"></script>
+    <script src="js/api.js" type="module"></script>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+        }
+        .card {
+            width: min(100%, 480px);
+            padding: 32px;
+            border-radius: 20px;
+            background: #fff;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .25);
+        }
+        h1 { margin: 0 0 24px; color: #667eea; text-align: center; font-size: 26px; }
+        label { display: block; margin: 0 0 7px; font-weight: bold; }
+        input {
+            width: 100%;
+            min-height: 46px;
+            margin: 0 0 18px;
+            padding: 11px 13px;
+            border: 1px solid #d8dbea;
+            border-radius: 10px;
+            font: inherit;
+        }
+        input:focus { outline: 3px solid rgba(102, 126, 234, .2); border-color: #667eea; }
+        button {
+            width: 100%;
+            min-height: 48px;
+            border: 0;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            font: inherit;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:disabled { opacity: .65; cursor: wait; }
+        .message { min-height: 24px; margin: 15px 0 0; text-align: center; }
+        .links { display: flex; justify-content: space-between; gap: 16px; margin-top: 20px; }
+        a { color: #667eea; text-decoration: none; }
+        [hidden] { display: none !important; }
+        @media (max-width: 480px) { .card { padding: 24px 20px; } }
+    </style>
+</head>
+<body>
+    <main class="card" id="admin-panel" hidden>
+        <h1>Сброс пароля пользователя</h1>
+        <form id="reset-form">
+            <label for="targetLogin">Логин пользователя</label>
+            <input id="targetLogin" name="targetLogin" autocomplete="username" required>
+            <label for="newPassword">Новый пароль</label>
+            <input id="newPassword" name="newPassword" type="password" autocomplete="new-password" required>
+            <button id="reset-button" type="submit">Сбросить</button>
+            <p class="message" id="message" role="status" aria-live="polite"></p>
+        </form>
+        <nav class="links" aria-label="Навигация">
+            <a href="/profile.html">К профилю</a>
+            <a href="/">На главную</a>
+        </nav>
+    </main>
+    <script type="module">
+        import { apiRequest } from './js/api.js';
+
+        let user;
+        try {
+            user = JSON.parse(localStorage.getItem('user') || 'null');
+        } catch (error) {
+            user = null;
+        }
+
+        if (!user || user.role !== 'admin') {
+            window.location.href = '/profile.html';
+        } else {
+            document.getElementById('admin-panel').hidden = false;
+        }
+
+        const form = document.getElementById('reset-form');
+        const message = document.getElementById('message');
+        const button = document.getElementById('reset-button');
+
+        form.addEventListener('submit', async event => {
+            event.preventDefault();
+            message.textContent = '';
+            message.style.color = '#b42318';
+            button.disabled = true;
+
+            try {
+                const result = await apiRequest('/api/admin/reset-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        targetLogin: document.getElementById('targetLogin').value.trim(),
+                        newPassword: document.getElementById('newPassword').value
+                    })
+                });
+                if (result.error) throw new Error(result.error);
+                message.style.color = '#33804a';
+                message.textContent = 'Пароль изменён!';
+                form.reset();
+            } catch (error) {
+                message.textContent = error instanceof TypeError
+                    ? 'Не удалось связаться с сервером. Проверьте подключение.'
+                    : (error.message || 'Не удалось изменить пароль.');
+            } finally {
+                button.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
