@@ -6,6 +6,26 @@
     <title>Логика для детей</title>
     <link rel="stylesheet" href="css/common.css">
     <style>
+        .auth-navigation {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            z-index: 10;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        .auth-navigation a {
+            padding: 10px 16px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, .25);
+        }
+        .auth-navigation a:hover { filter: brightness(1.08); }
         .menu-header {
             text-align: center;
             margin-bottom: 30px;
@@ -102,10 +122,38 @@
         }
         @media (max-width: 600px) {
             .lesson-medal { font-size: 22px; }
+            .auth-navigation { position: static; justify-content: center; margin-bottom: 18px; }
         }
     </style>
 </head>
 <body>
+    <nav class="auth-navigation" id="auth-navigation" aria-label="Аккаунт"></nav>
+    <script>
+        (function () {
+            const navigation = document.getElementById('auth-navigation');
+            const token = localStorage.getItem('token');
+            let user;
+            try {
+                user = JSON.parse(localStorage.getItem('user') || 'null');
+            } catch (error) {
+                user = null;
+            }
+
+            function addLink(label, href) {
+                const link = document.createElement('a');
+                link.href = href;
+                link.textContent = label;
+                navigation.appendChild(link);
+            }
+
+            if (token && user) {
+                addLink('Профиль', '/profile.html');
+                if (user.role === 'admin') addLink('Админка', '/admin.html');
+            } else {
+                addLink('Войти', '/auth.html');
+            }
+        }());
+    </script>
     <div class="game-container">
         <div class="menu-header">
             <img src="assets/professor.png" alt="Профессор Винтик" class="professor-img">

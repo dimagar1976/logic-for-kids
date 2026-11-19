@@ -600,6 +600,23 @@ function finishAttempt() {
         totalQuestions: sessionQuestions.length
     });
 
+    const token = localStorage.getItem('token');
+    if (token) {
+        const serverScoreByMedal = { gold: 6, silver: 4, bronze: 3, check: 0 };
+        const serverScore = serverScoreByMedal[currentCourseResult.medal] || 0;
+        import('../js/api.js')
+            .then(({ apiRequest }) => apiRequest('/api/progress', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ lessonId: 'lesson1', score: serverScore })
+            }))
+            .then(data => {
+                if (data.error) throw new Error(data.error);
+                if (data.isGold) console.log('Поздравляем! Вы получили золотую медаль!');
+            })
+            .catch(error => console.error('Не удалось сохранить прогресс:', error));
+    }
+
     if (wrong <= MAX_WRONG_ALLOWED) {
         finishChapterSuccess();
         return;
